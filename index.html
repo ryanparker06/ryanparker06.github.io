@@ -135,7 +135,7 @@ iframe {
 }
 
 /* ------------------ */
-/* NEW BUTTON STYLE */
+/* BUTTON */
 /* ------------------ */
 .btn-box {
   display: flex;
@@ -153,35 +153,58 @@ iframe {
   text-decoration: none;
   color: var(--text);
 
-  /* subtle depth */
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* left content */
+/* LEFT SIDE */
 .left {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.icon {
-  width: 32px;
-  height: 32px;
+/* ICON BOX (square now) */
+.icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px; /* square with slight softness */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* text */
+/* ICON IMAGE */
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* BRAND COLORS */
+.instagram {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+}
+
+.tiktok {
+  background: #111;
+}
+
+.youtube {
+  background: #ff0000;
+}
+
+/* TEXT */
 .label {
   font-size: 16px;
   font-weight: 500;
 }
 
-/* arrow */
+/* ARROW */
 .arrow {
   font-size: 18px;
   opacity: 0.6;
 }
 
-/* press feedback (no hover movement) */
+/* CLICK */
 .btn-box:active {
   transform: scale(0.97);
 }
@@ -206,10 +229,6 @@ iframe {
 
   iframe {
     height: 200px;
-  }
-
-  .btn-box {
-    padding: 18px;
   }
 
   .label {
@@ -262,7 +281,9 @@ iframe {
 
     <a href="#" class="btn-box">
       <div class="left">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon">
+        <div class="icon-box instagram">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon">
+        </div>
         <div class="label">Instagram</div>
       </div>
       <div class="arrow">›</div>
@@ -270,7 +291,9 @@ iframe {
 
     <a href="#" class="btn-box">
       <div class="left">
-        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="icon">
+        <div class="icon-box tiktok">
+          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="icon">
+        </div>
         <div class="label">TikTok</div>
       </div>
       <div class="arrow">›</div>
@@ -278,7 +301,9 @@ iframe {
 
     <a href="#" class="btn-box">
       <div class="left">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon">
+        <div class="icon-box youtube">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon">
+        </div>
         <div class="label">YouTube</div>
       </div>
       <div class="arrow">›</div>

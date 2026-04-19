@@ -9,9 +9,9 @@
 const CONFIG = {
   name: "Ryan Parker",
 
-  /* 🔥 EDIT THIS TEXT */
   sectionTitle: "Social Media Links",
 
+  /* ✅ YOUR ORIGINAL LINK (UNCHANGED) */
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
 
   video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
@@ -42,7 +42,6 @@ const CONFIG = {
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  will-change: transform, opacity;
 }
 
 body {
@@ -57,64 +56,21 @@ body {
   background-repeat: no-repeat;
 }
 
-/* transitions */
-body,
-.glass,
-.link,
-.section-title {
-  transition: 0.4s ease;
-}
-
 /* wrapper */
 .wrapper {
   width: 100%;
   max-width: min(1400px, 95vw);
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 3vw, 28px);
-  padding: clamp(16px, 4vw, 40px);
-
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(30px) scale(0.98);
-  animation: appLoad 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes appLoad {
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* stagger */
-.left,
-.section-title,
-.link {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: itemFade 0.6s ease forwards;
-}
-
-.left { animation-delay: 0.2s; }
-.section-title { animation-delay: 0.4s; }
-.link:nth-child(2) { animation-delay: 0.5s; }
-.link:nth-child(3) { animation-delay: 0.6s; }
-.link:nth-child(4) { animation-delay: 0.7s; }
-
-@keyframes itemFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  gap: 20px;
+  padding: 20px;
 }
 
 /* desktop */
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
-    gap: clamp(40px, 6vw, 120px);
+    gap: 80px;
   }
 
   .left, .right {
@@ -123,47 +79,23 @@ body,
   }
 }
 
-/* right */
 .right {
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 2vw, 18px);
-}
-
-/* 🔥 NEW TITLE CONTAINER */
-.section-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 56px;
-  border-radius: 20px;
-  color: white;
-  font-weight: 600;
-}
-
-/* themes */
-body.dark .glass {
-  background: rgba(20,20,25,0.5);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-body.light .glass {
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(255,255,255,0.4);
+  gap: 14px;
 }
 
 /* glass */
 .glass {
   backdrop-filter: blur(25px);
   border-radius: 22px;
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.2),
-    0 10px 40px rgba(0,0,0,0.4);
+  background: rgba(20,20,25,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 /* card */
 .card {
-  padding: clamp(16px, 2vw, 24px);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -174,38 +106,14 @@ body.light .glass {
   text-align: center;
 }
 
-/* switch */
-.switch {
+/* title container */
+.section-title {
   display: flex;
   justify-content: center;
-}
-
-.switch input {
-  display: none;
-}
-
-.slider {
-  width: 50px;
-  height: 26px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 20px;
-  position: relative;
-}
-
-.slider::before {
-  content: "";
-  width: 20px;
-  height: 20px;
-  background: white;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-input:checked + .slider::before {
-  transform: translateX(24px);
+  align-items: center;
+  height: 56px;
+  color: white;
+  font-weight: 600;
 }
 
 /* media */
@@ -251,13 +159,16 @@ input:checked + .slider::before {
 </style>
 </head>
 
-<body class="dark">
+<body>
 
 <div class="wrapper" id="app"></div>
 
 <script>
-/* background fix */
-document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
+/* 🔥 FIX: REMOVE DISCORD TEMP PARAMS */
+const cleanBg = CONFIG.background.split("?")[0];
+
+/* apply background */
+document.body.style.setProperty('--bg', `url(${cleanBg})`);
 
 /* media */
 const isGif = CONFIG.video.toLowerCase().includes(".gif");
@@ -273,11 +184,6 @@ app.innerHTML = `
     <div class="card glass">
       <h1>${CONFIG.name}</h1>
 
-      <label class="switch">
-        <input type="checkbox" id="themeToggle">
-        <div class="slider"></div>
-      </label>
-
       <div class="video">
         ${mediaElement}
       </div>
@@ -286,7 +192,6 @@ app.innerHTML = `
 
   <div class="right">
 
-    <!-- 🔥 NEW CONTAINER -->
     <div class="section-title glass">
       ${CONFIG.sectionTitle}
     </div>
@@ -301,14 +206,6 @@ app.innerHTML = `
 
   </div>
 `;
-
-/* theme */
-const toggle = document.getElementById("themeToggle");
-
-toggle.addEventListener("change", () => {
-  document.body.classList.toggle("light", toggle.checked);
-  document.body.classList.toggle("dark", !toggle.checked);
-});
 </script>
 
 </body>

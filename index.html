@@ -13,7 +13,6 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* 🔥 CHANGE BACKGROUND HERE */
 body {
   --bg-url: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974');
   background: var(--bg-url) center/cover no-repeat;
@@ -21,7 +20,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.4s;
 }
 
 /* blur overlay */
@@ -56,7 +54,6 @@ body.light .glass {
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,0.2),
     0 10px 40px rgba(0,0,0,0.4);
-  transition: 0.3s;
 }
 
 /* MAIN CARD */
@@ -91,6 +88,7 @@ body.light .glass {
   cursor: pointer;
 }
 
+/* 🔥 NOW CIRCULAR */
 .slider::before {
   content: "";
   width: 20px;
@@ -99,7 +97,7 @@ body.light .glass {
   position: absolute;
   top: 3px;
   left: 3px;
-  border-radius: 6px;
+  border-radius: 50%; /* FIXED */
   transition: 0.3s;
 }
 
@@ -139,16 +137,15 @@ hr {
   transform: translateY(-3px);
 }
 
-/* 🔥 REAL SQUARE ICONS */
+/* REAL SQUARE ICONS */
 .link img {
   width: 42px;
   height: 42px;
   margin-right: 14px;
-  border-radius: 10px; /* keeps app-icon feel */
+  border-radius: 10px;
   object-fit: cover;
 }
 
-/* text */
 .link span {
   flex: 1;
   font-size: 17px;
@@ -175,26 +172,26 @@ hr {
 
     <hr>
 
+    <!-- 🔥 AUTOPLAY VIDEO -->
     <div class="video">
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+      <iframe 
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=1&loop=1&playlist=dQw4w9WgXcQ">
+      </iframe>
     </div>
   </div>
 
-  <!-- Instagram (square icon) -->
   <div class="link glass" onclick="go('https://instagram.com')">
     <img src="https://cdn-icons-png.flaticon.com/512/15713/15713420.png">
     <span>Instagram</span>
     <div class="arrow">›</div>
   </div>
 
-  <!-- TikTok (square icon) -->
   <div class="link glass" onclick="go('https://tiktok.com')">
     <img src="https://cdn-icons-png.flaticon.com/512/15713/15713417.png">
     <span>TikTok</span>
     <div class="arrow">›</div>
   </div>
 
-  <!-- YouTube (square icon) -->
   <div class="link glass" onclick="go('https://youtube.com')">
     <img src="https://cdn-icons-png.flaticon.com/512/15713/15713428.png">
     <span>YouTube</span>

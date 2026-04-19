@@ -1,291 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ryan Parker</title>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+<!-- ONLY GAME PART UPDATED — rest of your script stays EXACTLY the same -->
 
 <script>
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_ID",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-</script>
-
-<script>
-const CONFIG = {
-  name: "Ryan Parker",
-  sectionTitle: "Social Media Links",
-
-  background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
-
-  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
-
-  links: [
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png"
-    },
-    {
-      title: "TikTok",
-      url: "https://www.tiktok.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png"
-    },
-    {
-      title: "YouTube",
-      url: "https://www.youtube.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png"
-    }
-  ]
-};
-</script>
-
-<style>
-body {
-  margin:0;
-  font-family:sans-serif;
-  background:black;
-  background-image:var(--bg);
-  background-size:cover;
-  display:flex;
-  justify-content:center;
-}
-
-.wrapper {
-  max-width:1100px;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  padding:20px;
-}
-
-.glass {
-  backdrop-filter:blur(25px);
-  background:rgba(20,20,25,0.5);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:20px;
-}
-
-.card {
-  padding:20px;
-  text-align:center;
-  color:white;
-}
-
-.video {
-  aspect-ratio:16/9;
-  overflow:hidden;
-  border-radius:10px;
-}
-
-.video img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.right {
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.link {
-  display:flex;
-  align-items:center;
-  padding:12px;
-  color:white;
-  cursor:pointer;
-}
-
-.link img {
-  width:40px;
-  margin-right:10px;
-  border-radius:8px;
-}
-
-.section-title {
-  text-align:center;
-  color:white;
-  padding:10px;
-}
-
-.game-box {
-  height:200px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border-radius:12px;
-  background:rgba(0,0,0,0.3);
-  cursor:pointer;
-  font-size:20px;
-}
-
-button {
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:white;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-.leaderboard {
-  margin-top:10px;
-  text-align:left;
-  font-size:14px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="wrapper" id="app"></div>
-
-<script>
-document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
-
-const app = document.getElementById("app");
-
-app.innerHTML = `
-<div class="card glass">
-  <h1>${CONFIG.name}</h1>
-  <div class="video"><img src="${CONFIG.video}"></div>
-</div>
-
-<div class="right">
-  <div class="section-title glass">${CONFIG.sectionTitle}</div>
-
-  ${CONFIG.links.map(l=>`
-    <div class="link glass" onclick="window.open('${l.url}','_blank')">
-      <img src="${l.icon}">
-      <span>${l.title}</span>
-      <div>›</div>
-    </div>
-  `).join("")}
-</div>
-
-<div class="card glass">
-  <h2>⚡ Reaction Game</h2>
-  <div id="game" class="game-box">Press Start</div>
-  <button id="startBtn">Start</button>
-  <div id="result"></div>
-  <button id="playAgain" style="display:none;">Play Again</button>
-  <div id="leaderboard" class="leaderboard"></div>
-</div>
-`;
-
-/* NAME STORAGE */
-let playerName = localStorage.getItem("playerName");
-if(!playerName){
-  playerName = prompt("Enter your name:");
-  localStorage.setItem("playerName", playerName);
-}
-
-/* GAME */
-let startTime, waiting, ready;
-
-const gameBox = document.getElementById("game");
-const result = document.getElementById("result");
-const playAgainBtn = document.getElementById("playAgain");
-
-document.getElementById("startBtn").onclick = () => {
-  gameBox.innerText = "Wait...";
-  gameBox.style.background = "rgba(0,0,0,0.3)";
+function startGame(){
   result.innerText = "";
   playAgainBtn.style.display = "none";
 
   ready = false;
   waiting = true;
 
-  setTimeout(()=>{
-    if(Math.random()<0.3){
-      gameBox.style.background="red";
-      gameBox.innerText="DON'T TAP!";
-      ready=false;
+  let countdown = 3;
+
+  gameBox.style.background = "rgba(0,0,0,0.35)";
+  gameText.innerText = countdown;
+
+  const countdownInterval = setInterval(() => {
+    countdown--;
+
+    if(countdown > 0){
+      gameText.innerText = countdown;
     } else {
-      gameBox.style.background="lime";
-      gameBox.innerText="TAP!";
-      startTime=Date.now();
-      ready=true;
+      clearInterval(countdownInterval);
+
+      gameText.innerText = "Wait...";
+
+      // now do the random delay like before
+      setTimeout(()=>{
+        if(Math.random()<0.3){
+          gameBox.style.background="red";
+          gameText.innerText="DON'T TAP!";
+          ready=false;
+        } else {
+          gameBox.style.background="lime";
+          gameText.innerText="TAP!";
+          startTime=Date.now();
+          ready=true;
+        }
+        waiting=false;
+      }, Math.random()*2000 + 1000); // slightly shorter delay now
     }
-    waiting=false;
-  }, Math.random()*3000+2000);
-};
 
-gameBox.onclick = ()=>{
-  if(waiting){
-    result.innerText="Too early!";
-    playAgainBtn.style.display = "inline-block";
-    return;
-  }
-
-  if(!ready){
-    result.innerText="💀 Fake out!";
-    playAgainBtn.style.display = "inline-block";
-    return;
-  }
-
-  const time = Date.now() - startTime;
-  result.innerText = `${time} ms`;
-  playAgainBtn.style.display = "inline-block";
-
-  saveScore(time);
-};
-
-/* PLAY AGAIN RESET */
-playAgainBtn.onclick = () => {
-  gameBox.innerText = "Press Start";
-  gameBox.style.background = "rgba(0,0,0,0.3)";
-  result.innerText = "";
-  playAgainBtn.style.display = "none";
-};
-
-/* SAVE BEST SCORE ONLY */
-async function saveScore(score){
-  const userRef = db.collection("scores").doc(playerName);
-  const doc = await userRef.get();
-
-  if(doc.exists){
-    if(score < doc.data().score){
-      await userRef.set({ name:playerName, score:score });
-    }
-  } else {
-    await userRef.set({ name:playerName, score:score });
-  }
-
-  loadLeaderboard();
+  }, 700); // speed of countdown (feel free to tweak)
 }
-
-/* LOAD GLOBAL */
-async function loadLeaderboard(){
-  const snapshot = await db.collection("scores")
-    .orderBy("score")
-    .limit(10)
-    .get();
-
-  let html = "<h4>🌍 Global Top 10</h4>";
-
-  snapshot.forEach((doc,i)=>{
-    const d = doc.data();
-    html += `${i+1}. ${d.name} - ${d.score} ms<br>`;
-  });
-
-  document.getElementById("leaderboard").innerHTML = html;
-}
-
-loadLeaderboard();
 </script>
-
-</body>
-</html>

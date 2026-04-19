@@ -12,9 +12,9 @@
 const CONFIG = {
   name: "Your Name",
 
-  background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495527142765760653/IMG_2274_Original.jpg?ex=69e691b0&is=69e54030&hm=b92a57046b87f40df44fdf7ead2c95f8594650cd36ccd7b3709d3a4b746bf83b&",
+  background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495527142765760653/IMG_2274_Original.jpg",
 
-  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
+  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif",
 
   links: [
     {
@@ -25,7 +25,7 @@ const CONFIG = {
     {
       title: "TikTok",
       url: "https://www.tiktok.com/@ryanparker2006",
-      icon: "https://cdn-icons-png.flaticon.com/512/3046/3046121.png" /* fixed bad URL */
+      icon: "https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
     },
     {
       title: "YouTube",
@@ -158,7 +158,7 @@ hr {
   background: rgba(255,255,255,0.3);
 }
 
-/* VIDEO (DISCORD FIX) */
+/* MEDIA */
 .video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -166,7 +166,8 @@ hr {
   overflow: hidden;
 }
 
-.video video {
+.video video,
+.video img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -193,7 +194,6 @@ hr {
   height: 42px;
   margin-right: 14px;
   border-radius: 10px;
-  object-fit: cover;
 }
 
 .link span {
@@ -216,6 +216,13 @@ hr {
 /* APPLY BACKGROUND */
 document.body.style.backgroundImage = `url(${CONFIG.background})`;
 
+/* 🔥 AUTO DETECT GIF OR VIDEO */
+const isGif = CONFIG.video.toLowerCase().includes(".gif");
+
+const mediaElement = isGif
+  ? `<img src="${CONFIG.video}" />`
+  : `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
+
 const app = document.getElementById("app");
 
 app.innerHTML = `
@@ -231,7 +238,7 @@ app.innerHTML = `
       <hr>
 
       <div class="video">
-        <video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>
+        ${mediaElement}
       </div>
     </div>
   </div>

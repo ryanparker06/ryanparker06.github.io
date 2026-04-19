@@ -42,12 +42,19 @@ const CONFIG = {
   will-change: transform, opacity;
 }
 
+/* 🔥 FIXED BACKGROUND SYSTEM */
 body {
-  background: center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  background-attachment: scroll; /* important for mobile */
 }
 
 /* SMOOTH THEME TRANSITION */
@@ -264,7 +271,8 @@ input:checked + .slider::before {
 <div class="wrapper" id="app"></div>
 
 <script>
-document.body.style.backgroundImage = `url(${CONFIG.background})`;
+/* 🔥 FIXED BACKGROUND APPLY */
+document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
 
 const isGif = CONFIG.video.toLowerCase().includes(".gif");
 

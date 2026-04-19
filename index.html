@@ -19,13 +19,13 @@ const CONFIG = {
   links: [
     {
       title: "Instagram",
-      url: "https://www.instagram.com/ryanparker2006?igsh=MWpqZDlsdDlycGthMw%3D%3D&utm_source=qr",
+      url: "https://www.instagram.com/ryanparker2006",
       icon: "https://cdn-icons-png.flaticon.com/512/15713/15713420.png"
     },
     {
       title: "TikTok",
-      url: "https://www.tiktok.com/@ryanparker2006?_r=1&_t=ZN-95g7jwXwFny",
-      icon: "https://www.google.com/imgres?q=tiktok%20icon&imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Ftiktok-social-media-app-icon-tiktok-social-media-app-icon-square-shape-vector-illustration-269930887.jpg&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Ftiktok-social-media-app-icon-tiktok-social-media-app-icon-square-rounded-corners-vector-illustration-image269994327&docid=QaFvw-QIb2akDM&tbnid=T5uoIpxJ5LWeRM&vet=12ahUKEwjj-6iW5_qTAxWaWkEAHR5LA9IQnPAOegQIFRAB..i&w=800&h=800&hcb=2&ved=2ahUKEwjj-6iW5_qTAxWaWkEAHR5LA9IQnPAOegQIFRAB"
+      url: "https://www.tiktok.com/@ryanparker2006",
+      icon: "https://cdn-icons-png.flaticon.com/512/3046/3046121.png" /* fixed bad URL */
     },
     {
       title: "YouTube",
@@ -158,7 +158,7 @@ hr {
   background: rgba(255,255,255,0.3);
 }
 
-/* VIDEO */
+/* VIDEO (DISCORD FIX) */
 .video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -166,10 +166,10 @@ hr {
   overflow: hidden;
 }
 
-.video iframe {
+.video video {
   width: 100%;
   height: 100%;
-  border: none;
+  object-fit: cover;
   display: block;
 }
 
@@ -231,7 +231,7 @@ app.innerHTML = `
       <hr>
 
       <div class="video">
-        <iframe src="${CONFIG.video}"></iframe>
+        <video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>
       </div>
     </div>
   </div>

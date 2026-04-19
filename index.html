@@ -56,24 +56,28 @@ body {
   background-repeat: no-repeat;
 }
 
+/* 🔥 FIXED CENTERING */
 .wrapper {
   width: 100%;
-  max-width: min(1400px, 95vw);
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  margin: auto;
 }
 
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
-    gap: 80px;
+    justify-content: center;   /* center horizontally */
+    align-items: center;       /* center vertically */
+    gap: 60px;
   }
 
   .left, .right {
-    flex: 1;
-    max-width: 520px;
+    width: 100%;
+    max-width: 480px;
   }
 }
 
@@ -102,7 +106,6 @@ body {
   text-align: center;
 }
 
-/* 🔥 DIVIDER */
 .divider {
   width: 100%;
   height: 1px;
@@ -182,7 +185,6 @@ function loadBackground(url) {
 
 loadBackground(CONFIG.background);
 
-/* media */
 const isGif = CONFIG.video.toLowerCase().includes(".gif");
 
 const mediaElement = isGif
@@ -195,10 +197,7 @@ app.innerHTML = `
   <div class="left">
     <div class="card glass">
       <h1>${CONFIG.name}</h1>
-
-      <!-- 🔥 DIVIDER ADDED -->
       <div class="divider"></div>
-
       <div class="video">
         ${mediaElement}
       </div>
@@ -206,7 +205,6 @@ app.innerHTML = `
   </div>
 
   <div class="right">
-
     <div class="section-title glass">
       ${CONFIG.sectionTitle}
     </div>
@@ -218,7 +216,6 @@ app.innerHTML = `
         <div class="arrow">›</div>
       </div>
     `).join("")}
-
   </div>
 `;
 </script>

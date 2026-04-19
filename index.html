@@ -9,7 +9,9 @@
 const CONFIG = {
   name: "Ryan Parker",
 
-  /* ✅ YOUR ORIGINAL BACKGROUND LINK RESTORED */
+  /* 🔥 EDIT THIS TEXT */
+  sectionTitle: "Social Media Links",
+
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495541902693499081/IMG_0258_Original.jpg?ex=69e69f6f&is=69e54def&hm=7961f59d1cffdb960f7c2cd21bfba0cb1b581dd4c7255126416133c1e1a22477&",
 
   video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
@@ -43,7 +45,6 @@ const CONFIG = {
   will-change: transform, opacity;
 }
 
-/* ✅ FIXED MOBILE BACKGROUND */
 body {
   min-height: 100vh;
   display: flex;
@@ -56,18 +57,15 @@ body {
   background-repeat: no-repeat;
 }
 
-/* rest unchanged */
+/* transitions */
 body,
 .glass,
 .link,
 .section-title {
-  transition: 
-    background 0.4s ease,
-    border 0.4s ease,
-    color 0.3s ease,
-    box-shadow 0.4s ease;
+  transition: 0.4s ease;
 }
 
+/* wrapper */
 .wrapper {
   width: 100%;
   max-width: min(1400px, 95vw);
@@ -90,6 +88,7 @@ body,
   }
 }
 
+/* stagger */
 .left,
 .section-title,
 .link {
@@ -111,11 +110,10 @@ body,
   }
 }
 
+/* desktop */
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     gap: clamp(40px, 6vw, 120px);
   }
 
@@ -125,26 +123,25 @@ body,
   }
 }
 
+/* right */
 .right {
   display: flex;
   flex-direction: column;
   gap: clamp(12px, 2vw, 18px);
 }
 
+/* 🔥 NEW TITLE CONTAINER */
 .section-title {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 56px;
-  padding: 14px 20px;
+  height: 56px;
   border-radius: 20px;
-  text-align: center;
   color: white;
   font-weight: 600;
-  font-size: 18px;
 }
 
+/* themes */
 body.dark .glass {
   background: rgba(20,20,25,0.5);
   border: 1px solid rgba(255,255,255,0.15);
@@ -155,6 +152,7 @@ body.light .glass {
   border: 1px solid rgba(255,255,255,0.4);
 }
 
+/* glass */
 .glass {
   backdrop-filter: blur(25px);
   border-radius: 22px;
@@ -163,6 +161,7 @@ body.light .glass {
     0 10px 40px rgba(0,0,0,0.4);
 }
 
+/* card */
 .card {
   padding: clamp(16px, 2vw, 24px);
   display: flex;
@@ -175,6 +174,7 @@ body.light .glass {
   text-align: center;
 }
 
+/* switch */
 .switch {
   display: flex;
   justify-content: center;
@@ -201,13 +201,14 @@ body.light .glass {
   top: 3px;
   left: 3px;
   border-radius: 50%;
-  transition: transform 0.3s ease;
+  transition: 0.3s;
 }
 
 input:checked + .slider::before {
   transform: translateX(24px);
 }
 
+/* media */
 .video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -222,6 +223,7 @@ input:checked + .slider::before {
   object-fit: cover;
 }
 
+/* links */
 .link {
   display: flex;
   align-items: center;
@@ -229,11 +231,6 @@ input:checked + .slider::before {
   border-radius: 20px;
   color: white;
   cursor: pointer;
-  transition: 0.25s;
-}
-
-.link:hover {
-  transform: translateY(-3px);
 }
 
 .link img {
@@ -259,17 +256,8 @@ input:checked + .slider::before {
 <div class="wrapper" id="app"></div>
 
 <script>
-/* ✅ KEEP YOUR ORIGINAL IMAGE BUT FORCE LOAD */
-const img = new Image();
-img.src = CONFIG.background;
-
-img.onload = () => {
-  document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
-};
-
-img.onerror = () => {
-  console.error("Background failed to load");
-};
+/* background fix */
+document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
 
 /* media */
 const isGif = CONFIG.video.toLowerCase().includes(".gif");
@@ -297,8 +285,10 @@ app.innerHTML = `
   </div>
 
   <div class="right">
+
+    <!-- 🔥 NEW CONTAINER -->
     <div class="section-title glass">
-      Social Media Links
+      ${CONFIG.sectionTitle}
     </div>
 
     ${CONFIG.links.map(link => `
@@ -308,9 +298,11 @@ app.innerHTML = `
         <div class="arrow">›</div>
       </div>
     `).join("")}
+
   </div>
 `;
 
+/* theme */
 const toggle = document.getElementById("themeToggle");
 
 toggle.addEventListener("change", () => {

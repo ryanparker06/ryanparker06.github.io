@@ -29,13 +29,15 @@ body {
   background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") center/cover no-repeat;
 }
 
-/* soft glow overlay */
+/* blur + glow layer */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(30px);
-  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.15), transparent 60%);
+  backdrop-filter: blur(25px);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,0.15), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(255,150,50,0.2), transparent 60%);
 }
 
 /* ------------------ */
@@ -52,7 +54,7 @@ body::before {
 .card {
   position: relative;
   padding: 30px;
-  border-radius: 24px;
+  border-radius: 26px;
 
   background: var(--glass);
   backdrop-filter: blur(18px);
@@ -60,25 +62,24 @@ body::before {
   border: 1px solid var(--border);
 
   box-shadow:
-    0 8px 40px rgba(0,0,0,0.4),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+    0 10px 40px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.25);
 
   text-align: center;
 }
 
-.card + .card {
-  margin-top: 25px;
-}
-
-/* subtle glow edge */
+/* glow edge */
 .card::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
+  box-shadow: inset 0 0 25px rgba(255,255,255,0.15);
+}
 
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+.card + .card {
+  margin-top: 25px;
 }
 
 /* ------------------ */
@@ -95,7 +96,7 @@ h1 {
 /* ------------------ */
 .switch {
   margin: 18px auto;
-  width: 52px;
+  width: 54px;
   height: 28px;
   background: rgba(255,255,255,0.25);
   border-radius: 50px;
@@ -116,7 +117,7 @@ h1 {
 }
 
 body.light .switch::before {
-  transform: translateX(24px);
+  transform: translateX(26px);
 }
 
 /* ------------------ */
@@ -130,7 +131,7 @@ body.light .switch::before {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.5),
     transparent
   );
 }
@@ -141,7 +142,7 @@ body.light .switch::before {
 .video-wrapper {
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
 }
 
 iframe {
@@ -152,7 +153,7 @@ iframe {
 }
 
 /* ------------------ */
-/* BUTTONS */
+/* BUTTON */
 /* ------------------ */
 .btn-box {
   display: flex;
@@ -162,20 +163,20 @@ iframe {
   padding: 18px;
   margin: 14px 0;
 
-  border-radius: 16px;
+  border-radius: 18px;
 
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.2);
 
   box-shadow:
-    0 6px 20px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+    0 8px 25px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.2);
 
   text-decoration: none;
   color: white;
 }
 
-/* left side */
+/* LEFT */
 .left {
   display: flex;
   align-items: center;
@@ -184,23 +185,23 @@ iframe {
 
 /* ICON BOX */
 .icon-box {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 10px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  position: relative;
 }
 
 /* ICON */
 .icon {
-  width: 22px;
+  width: 24px;
+  z-index: 2;
 }
 
-/* BRAND STYLES */
+/* BRAND COLORS */
 .instagram {
   background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af);
 }
@@ -213,34 +214,33 @@ iframe {
   background: linear-gradient(180deg,#ff3d3d,#c40000);
 }
 
-/* glow behind icons */
+/* GLOW */
 .icon-box::after {
   content: "";
   position: absolute;
-  width: 46px;
-  height: 46px;
+  inset: 0;
   border-radius: inherit;
-  filter: blur(12px);
-  opacity: 0.4;
+  filter: blur(14px);
+  opacity: 0.5;
 }
 
 .instagram::after { background: #dd2a7b; }
 .tiktok::after { background: #00f2ea; }
 .youtube::after { background: #ff0000; }
 
-/* text */
+/* TEXT */
 .label {
   font-size: 18px;
   font-weight: 500;
 }
 
-/* arrow */
+/* ARROW */
 .arrow {
-  font-size: 20px;
+  font-size: 22px;
   opacity: 0.6;
 }
 
-/* click feedback */
+/* CLICK */
 .btn-box:active {
   transform: scale(0.97);
 }
@@ -249,8 +249,14 @@ iframe {
 /* MOBILE */
 /* ------------------ */
 @media (max-width:600px){
-  body { padding:20px 10px; align-items:flex-start; }
-  iframe { height:200px; }
+  body {
+    align-items: flex-start;
+    padding: 20px 10px;
+  }
+
+  iframe {
+    height: 200px;
+  }
 }
 
 </style>
@@ -260,9 +266,11 @@ iframe {
 
 <div class="wrapper">
 
-  <!-- TOP -->
+  <!-- TOP CARD -->
   <div class="card">
+
     <h1>Your Name</h1>
+
     <div class="switch"></div>
 
     <div class="separator"></div>
@@ -270,9 +278,10 @@ iframe {
     <div class="video-wrapper">
       <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
     </div>
+
   </div>
 
-  <!-- BUTTONS -->
+  <!-- BUTTON CARD -->
   <div class="card">
 
     <a href="#" class="btn-box">

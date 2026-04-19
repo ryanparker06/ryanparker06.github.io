@@ -49,7 +49,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: black; /* fallback */
+  background: black;
   background-image: var(--bg);
   background-size: cover;
   background-position: center;
@@ -100,6 +100,14 @@ body {
 .card h1 {
   color: white;
   text-align: center;
+}
+
+/* 🔥 DIVIDER */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+  margin: 6px 0;
 }
 
 .section-title {
@@ -157,7 +165,6 @@ body {
 <div class="wrapper" id="app"></div>
 
 <script>
-/* 🔥 FORCE DISCORD IMAGE LOAD */
 function loadBackground(url) {
   const img = new Image();
 
@@ -166,7 +173,6 @@ function loadBackground(url) {
   };
 
   img.onerror = () => {
-    /* retry with cache bypass */
     const retry = url + "&t=" + Date.now();
     document.body.style.setProperty('--bg', `url(${retry})`);
   };
@@ -174,7 +180,6 @@ function loadBackground(url) {
   img.src = url;
 }
 
-/* run */
 loadBackground(CONFIG.background);
 
 /* media */
@@ -190,6 +195,9 @@ app.innerHTML = `
   <div class="left">
     <div class="card glass">
       <h1>${CONFIG.name}</h1>
+
+      <!-- 🔥 DIVIDER ADDED -->
+      <div class="divider"></div>
 
       <div class="video">
         ${mediaElement}

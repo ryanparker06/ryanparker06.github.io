@@ -1,44 +1,294 @@
-<!-- ONLY GAME PART UPDATED — rest of your script stays EXACTLY the same -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Parker</title>
 
 <script>
+const CONFIG = {
+  name: "Ryan Parker",
+
+  sectionTitle: "Social Media Links",
+
+  background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
+
+  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
+
+  links: [
+    {
+      title: "Instagram",
+      url: "https://www.instagram.com/ryanparker2006",
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png?ex=69e6975b&is=69e545db&hm=831bcbf92361f47b35c3ccefdeb803634d49787fa22ee7cd0bf1b9c7a48ce1c1&"
+    },
+    {
+      title: "TikTok",
+      url: "https://www.tiktok.com/@ryanparker2006",
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png?ex=69e6975f&is=69e545df&hm=4d1d24c6b1b0c13eaae040d69933821a854a3b53ffe7352409285f6f8ed27646&"
+    },
+    {
+      title: "YouTube",
+      url: "https://www.youtube.com/@ryanparker2006",
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png?ex=69e69763&is=69e545e3&hm=8ee415ec59526b3f96ad22d1341ea67ed60d75875175402fd775f8b65a66db85&"
+    }
+  ]
+};
+</script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 900px) {
+  .wrapper {
+    flex-direction: row;
+    gap: 60px;
+  }
+
+  .left, .right {
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.glass {
+  backdrop-filter: blur(25px);
+  border-radius: 22px;
+  background: rgba(20,20,25,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card h1 {
+  color: white;
+  text-align: center;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+}
+
+.section-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  color: white;
+  font-weight: 600;
+}
+
+.video {
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.link img {
+  width: 42px;
+  margin-right: 14px;
+  border-radius: 10px;
+}
+
+.arrow {
+  font-size: 22px;
+  opacity: 0.6;
+}
+
+/* GAME */
+.game-container {
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.game-box {
+  height: 200px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  font-size: 20px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper" id="app"></div>
+
+<script>
+function loadBackground(url) {
+  const img = new Image();
+  img.onload = () => {
+    document.body.style.setProperty('--bg', `url(${url})`);
+  };
+  img.src = url;
+}
+
+loadBackground(CONFIG.background);
+
+const mediaElement = `<img src="${CONFIG.video}" />`;
+
+const app = document.getElementById("app");
+
+app.innerHTML = `
+<div class="left">
+  <div class="card glass">
+    <h1>${CONFIG.name}</h1>
+    <div class="divider"></div>
+    <div class="video">${mediaElement}</div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="section-title glass">${CONFIG.sectionTitle}</div>
+
+  ${CONFIG.links.map(link => `
+    <div class="link glass" onclick="window.open('${link.url}', '_blank')">
+      <img src="${link.icon}">
+      <span>${link.title}</span>
+      <div class="arrow">›</div>
+    </div>
+  `).join("")}
+
+  <!-- GAME -->
+  <div class="game-container glass">
+    <h3>⚡ Reaction Game</h3>
+
+    <div id="gameBox" class="game-box">
+      <div id="gameText">Click Start</div>
+      <button id="startBtn">Start</button>
+      <button id="playAgainBtn" style="display:none;">Play Again</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+</div>
+`;
+
+/* GAME */
+let startTime, ready = false, waiting = false;
+
+const gameBox = document.getElementById("gameBox");
+const gameText = document.getElementById("gameText");
+const result = document.getElementById("result");
+const playAgainBtn = document.getElementById("playAgainBtn");
+
+document.getElementById("startBtn").onclick = startGame;
+playAgainBtn.onclick = resetGame;
+
 function startGame(){
+  gameText.innerText = "Wait...";
   result.innerText = "";
   playAgainBtn.style.display = "none";
+  gameBox.style.background = "rgba(0,0,0,0.4)";
 
   ready = false;
   waiting = true;
 
-  let countdown = 3;
-
-  gameBox.style.background = "rgba(0,0,0,0.35)";
-  gameText.innerText = countdown;
-
-  const countdownInterval = setInterval(() => {
-    countdown--;
-
-    if(countdown > 0){
-      gameText.innerText = countdown;
+  setTimeout(()=>{
+    if(Math.random()<0.3){
+      gameBox.style.background = "red";
+      gameText.innerText = "DON'T TAP!";
+      ready = false;
     } else {
-      clearInterval(countdownInterval);
-
-      gameText.innerText = "Wait...";
-
-      // now do the random delay like before
-      setTimeout(()=>{
-        if(Math.random()<0.3){
-          gameBox.style.background="red";
-          gameText.innerText="DON'T TAP!";
-          ready=false;
-        } else {
-          gameBox.style.background="lime";
-          gameText.innerText="TAP!";
-          startTime=Date.now();
-          ready=true;
-        }
-        waiting=false;
-      }, Math.random()*2000 + 1000); // slightly shorter delay now
+      gameBox.style.background = "lime";
+      gameText.innerText = "TAP!";
+      startTime = Date.now();
+      ready = true;
     }
+    waiting = false;
+  }, Math.random()*3000 + 1500);
+}
 
-  }, 700); // speed of countdown (feel free to tweak)
+gameBox.onclick = ()=>{
+  if(waiting){
+    result.innerText = "Too early!";
+    playAgainBtn.style.display = "inline-block";
+    return;
+  }
+
+  if(!ready){
+    result.innerText = "Fake!";
+    playAgainBtn.style.display = "inline-block";
+    return;
+  }
+
+  const time = Date.now() - startTime;
+  result.innerText = time + " ms";
+  playAgainBtn.style.display = "inline-block";
+};
+
+function resetGame(){
+  gameBox.style.background = "rgba(0,0,0,0.4)";
+  gameText.innerText = "Click Start";
+  result.innerText = "";
+  playAgainBtn.style.display = "none";
 }
 </script>
+
+</body>
+</html>

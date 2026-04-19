@@ -5,29 +5,16 @@
 <title>My Page</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-/* ------------------ */
-/* THEME */
-/* ------------------ */
 :root {
-  --bg-overlay: rgba(255,255,255,0.08);
-  --text: white;
+  --glass: rgba(255,255,255,0.08);
   --border: rgba(255,255,255,0.25);
-  --btn-bg: rgba(255,255,255,0.08);
-}
-
-body.light {
-  --bg-overlay: rgba(0,0,0,0.45);
-  --text: white;
-  --border: rgba(255,255,255,0.15);
-  --btn-bg: rgba(0,0,0,0.4);
+  --text: #fff;
 }
 
 /* ------------------ */
-/* BODY */
+/* BACKGROUND */
 /* ------------------ */
 body {
   margin: 0;
@@ -39,7 +26,16 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") no-repeat center/cover;
+  background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") center/cover no-repeat;
+}
+
+/* soft glow overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(30px);
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.15), transparent 60%);
 }
 
 /* ------------------ */
@@ -47,25 +43,42 @@ body {
 /* ------------------ */
 .wrapper {
   width: 92%;
-  max-width: 750px;
+  max-width: 720px;
 }
 
 /* ------------------ */
-/* CARD */
+/* GLASS CARD */
 /* ------------------ */
 .card {
+  position: relative;
   padding: 30px;
-  border-radius: 22px;
+  border-radius: 24px;
 
-  background: var(--bg-overlay);
-  backdrop-filter: blur(14px);
+  background: var(--glass);
+  backdrop-filter: blur(18px);
 
   border: 1px solid var(--border);
+
+  box-shadow:
+    0 8px 40px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+
   text-align: center;
 }
 
 .card + .card {
-  margin-top: 20px;
+  margin-top: 25px;
+}
+
+/* subtle glow edge */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
 }
 
 /* ------------------ */
@@ -73,17 +86,18 @@ body {
 /* ------------------ */
 h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 /* ------------------ */
 /* SWITCH */
 /* ------------------ */
 .switch {
-  margin: 15px auto 10px;
-  width: 50px;
-  height: 26px;
-  background: rgba(255,255,255,0.3);
+  margin: 18px auto;
+  width: 52px;
+  height: 28px;
+  background: rgba(255,255,255,0.25);
   border-radius: 50px;
   position: relative;
   cursor: pointer;
@@ -92,17 +106,13 @@ h1 {
 .switch::before {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: white;
+  width: 22px;
+  height: 22px;
+  background: #fff;
   border-radius: 50%;
   top: 3px;
   left: 4px;
-  transition: 0.3s;
-}
-
-body.light .switch {
-  background: rgba(0,0,0,0.6);
+  transition: .3s;
 }
 
 body.light .switch::before {
@@ -114,17 +124,24 @@ body.light .switch::before {
 /* ------------------ */
 .separator {
   height: 2px;
-  background: var(--border);
   margin: 15px 0;
   border-radius: 2px;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
 }
 
 /* ------------------ */
 /* VIDEO */
 /* ------------------ */
 .video-wrapper {
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 iframe {
@@ -135,7 +152,7 @@ iframe {
 }
 
 /* ------------------ */
-/* BUTTON */
+/* BUTTONS */
 /* ------------------ */
 .btn-box {
   display: flex;
@@ -143,115 +160,97 @@ iframe {
   justify-content: space-between;
 
   padding: 18px;
-  margin: 12px 0;
+  margin: 14px 0;
 
-  border-radius: 14px;
+  border-radius: 16px;
 
-  background: var(--btn-bg);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.15);
 
   text-decoration: none;
-  color: var(--text);
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: white;
 }
 
-/* LEFT SIDE */
+/* left side */
 .left {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-/* ICON BOX (square now) */
+/* ICON BOX */
 .icon-box {
-  width: 42px;
-  height: 42px;
-  border-radius: 8px; /* square with slight softness */
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
 }
 
-/* ICON IMAGE */
+/* ICON */
 .icon {
   width: 22px;
-  height: 22px;
 }
 
-/* BRAND COLORS */
+/* BRAND STYLES */
 .instagram {
-  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+  background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af);
 }
 
 .tiktok {
-  background: #111;
+  background: #0f0f0f;
 }
 
 .youtube {
-  background: #ff0000;
+  background: linear-gradient(180deg,#ff3d3d,#c40000);
 }
 
-/* TEXT */
+/* glow behind icons */
+.icon-box::after {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: inherit;
+  filter: blur(12px);
+  opacity: 0.4;
+}
+
+.instagram::after { background: #dd2a7b; }
+.tiktok::after { background: #00f2ea; }
+.youtube::after { background: #ff0000; }
+
+/* text */
 .label {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 }
 
-/* ARROW */
+/* arrow */
 .arrow {
-  font-size: 18px;
+  font-size: 20px;
   opacity: 0.6;
 }
 
-/* CLICK */
+/* click feedback */
 .btn-box:active {
   transform: scale(0.97);
 }
 
-/* ---------------------- */
-/* 📱 MOBILE */
-/* ---------------------- */
-@media (max-width: 600px) {
-
-  body {
-    align-items: flex-start;
-    padding: 20px 10px;
-  }
-
-  .card {
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 22px;
-  }
-
-  iframe {
-    height: 200px;
-  }
-
-  .label {
-    font-size: 17px;
-  }
-}
-
 /* ------------------ */
-/* 💻 DESKTOP */
+/* MOBILE */
 /* ------------------ */
-@media (min-width: 850px) {
-
-  .wrapper {
-    max-width: 900px;
-  }
-
-  .card {
-    padding: 40px;
-  }
-
-  iframe {
-    height: 300px;
-  }
+@media (max-width:600px){
+  body { padding:20px 10px; align-items:flex-start; }
+  iframe { height:200px; }
 }
 
 </style>
@@ -261,22 +260,19 @@ iframe {
 
 <div class="wrapper">
 
-  <!-- TOP CARD -->
+  <!-- TOP -->
   <div class="card">
-
     <h1>Your Name</h1>
-
-    <div class="switch" onclick="toggleTheme()"></div>
+    <div class="switch"></div>
 
     <div class="separator"></div>
 
     <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
     </div>
-
   </div>
 
-  <!-- BUTTON CARD -->
+  <!-- BUTTONS -->
   <div class="card">
 
     <a href="#" class="btn-box">
@@ -312,22 +308,6 @@ iframe {
   </div>
 
 </div>
-
-<script>
-function toggleTheme() {
-  document.body.classList.toggle("light");
-
-  if (document.body.classList.contains("light")) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
-}
-
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("light");
-}
-</script>
 
 </body>
 </html>

@@ -5,10 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ryan Parker</title>
 
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
 <script>
 const CONFIG = {
   name: "Ryan Parker",
-
   sectionTitle: "Social Media Links",
 
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
@@ -19,146 +33,117 @@ const CONFIG = {
     {
       title: "Instagram",
       url: "https://www.instagram.com/ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png?ex=69e6975b&is=69e545db&hm=831bcbf92361f47b35c3ccefdeb803634d49787fa22ee7cd0bf1b9c7a48ce1c1&"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png"
     },
     {
       title: "TikTok",
       url: "https://www.tiktok.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png?ex=69e6975f&is=69e545df&hm=4d1d24c6b1b0c13eaae040d69933821a854a3b53ffe7352409285f6f8ed27646&"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png"
     },
     {
       title: "YouTube",
       url: "https://www.youtube.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png?ex=69e69763&is=69e545e3&hm=8ee415ec59526b3f96ad22d1341ea67ed60d75875175402fd775f8b65a66db85&"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png"
     }
   ]
 };
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
 body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: black;
-  background-image: var(--bg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  margin:0;
+  font-family:sans-serif;
+  background:black;
+  background-image:var(--bg);
+  background-size:cover;
+  display:flex;
+  justify-content:center;
 }
 
-/* 🔥 FIXED CENTERING */
 .wrapper {
-  width: 100%;
-  max-width: 1100px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  margin: auto;
-}
-
-@media (min-width: 900px) {
-  .wrapper {
-    flex-direction: row;
-    justify-content: center;   /* center horizontally */
-    align-items: center;       /* center vertically */
-    gap: 60px;
-  }
-
-  .left, .right {
-    width: 100%;
-    max-width: 480px;
-  }
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  max-width:1100px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  padding:20px;
 }
 
 .glass {
-  backdrop-filter: blur(25px);
-  border-radius: 22px;
-  background: rgba(20,20,25,0.5);
-  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(25px);
+  background:rgba(20,20,25,0.5);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:20px;
 }
 
 .card {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.card h1 {
-  color: white;
-  text-align: center;
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(255,255,255,0.25);
-  margin: 6px 0;
-}
-
-.section-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 56px;
-  color: white;
-  font-weight: 600;
+  padding:20px;
+  text-align:center;
+  color:white;
 }
 
 .video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px;
-  overflow: hidden;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border-radius:10px;
 }
 
-.video video,
 .video img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.right {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
 .link {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
+  display:flex;
+  align-items:center;
+  padding:12px;
+  color:white;
+  cursor:pointer;
 }
 
 .link img {
-  width: 42px;
-  height: 42px;
-  margin-right: 14px;
-  border-radius: 10px;
+  width:40px;
+  margin-right:10px;
+  border-radius:8px;
 }
 
-.link span {
-  flex: 1;
+.section-title {
+  text-align:center;
+  color:white;
+  padding:10px;
 }
 
-.arrow {
-  font-size: 22px;
-  opacity: 0.6;
+.game-box {
+  height:200px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:12px;
+  background:rgba(0,0,0,0.3);
+  cursor:pointer;
+  font-size:20px;
+}
+
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:white;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.leaderboard {
+  margin-top:10px;
+  text-align:left;
+  font-size:14px;
 }
 </style>
 </head>
@@ -168,56 +153,122 @@ body {
 <div class="wrapper" id="app"></div>
 
 <script>
-function loadBackground(url) {
-  const img = new Image();
-
-  img.onload = () => {
-    document.body.style.setProperty('--bg', `url(${url})`);
-  };
-
-  img.onerror = () => {
-    const retry = url + "&t=" + Date.now();
-    document.body.style.setProperty('--bg', `url(${retry})`);
-  };
-
-  img.src = url;
-}
-
-loadBackground(CONFIG.background);
-
-const isGif = CONFIG.video.toLowerCase().includes(".gif");
-
-const mediaElement = isGif
-  ? `<img src="${CONFIG.video}" />`
-  : `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
+document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
 
 const app = document.getElementById("app");
 
 app.innerHTML = `
-  <div class="left">
-    <div class="card glass">
-      <h1>${CONFIG.name}</h1>
-      <div class="divider"></div>
-      <div class="video">
-        ${mediaElement}
-      </div>
-    </div>
-  </div>
+<div class="card glass">
+  <h1>${CONFIG.name}</h1>
+  <div class="video"><img src="${CONFIG.video}"></div>
+</div>
 
-  <div class="right">
-    <div class="section-title glass">
-      ${CONFIG.sectionTitle}
-    </div>
+<div class="right">
+  <div class="section-title glass">${CONFIG.sectionTitle}</div>
 
-    ${CONFIG.links.map(link => `
-      <div class="link glass" onclick="window.open('${link.url}', '_blank')">
-        <img src="${link.icon}">
-        <span>${link.title}</span>
-        <div class="arrow">›</div>
-      </div>
-    `).join("")}
-  </div>
+  ${CONFIG.links.map(l=>`
+    <div class="link glass" onclick="window.open('${l.url}','_blank')">
+      <img src="${l.icon}">
+      <span>${l.title}</span>
+      <div>›</div>
+    </div>
+  `).join("")}
+</div>
+
+<div class="card glass">
+  <h2>⚡ Reaction Game</h2>
+  <div id="game" class="game-box">Press Start</div>
+  <button id="startBtn">Start</button>
+  <div id="result"></div>
+  <div id="leaderboard" class="leaderboard"></div>
+</div>
 `;
+
+/* NAME STORAGE */
+let playerName = localStorage.getItem("playerName");
+if(!playerName){
+  playerName = prompt("Enter your name:");
+  localStorage.setItem("playerName", playerName);
+}
+
+/* GAME */
+let startTime, waiting, ready;
+
+const gameBox = document.getElementById("game");
+const result = document.getElementById("result");
+
+document.getElementById("startBtn").onclick = () => {
+  gameBox.innerText = "Wait...";
+  gameBox.style.background = "rgba(0,0,0,0.3)";
+  ready = false;
+  waiting = true;
+
+  setTimeout(()=>{
+    if(Math.random()<0.3){
+      gameBox.style.background="red";
+      gameBox.innerText="DON'T TAP!";
+      ready=false;
+    } else {
+      gameBox.style.background="lime";
+      gameBox.innerText="TAP!";
+      startTime=Date.now();
+      ready=true;
+    }
+    waiting=false;
+  }, Math.random()*3000+2000);
+};
+
+gameBox.onclick = ()=>{
+  if(waiting){
+    result.innerText="Too early!";
+    return;
+  }
+
+  if(!ready){
+    result.innerText="💀 Fake out!";
+    return;
+  }
+
+  const time = Date.now() - startTime;
+  result.innerText = `${time} ms`;
+
+  saveScore(time);
+};
+
+/* SAVE BEST SCORE ONLY */
+async function saveScore(score){
+  const userRef = db.collection("scores").doc(playerName);
+  const doc = await userRef.get();
+
+  if(doc.exists){
+    if(score < doc.data().score){
+      await userRef.set({ name:playerName, score:score });
+    }
+  } else {
+    await userRef.set({ name:playerName, score:score });
+  }
+
+  loadLeaderboard();
+}
+
+/* LOAD GLOBAL */
+async function loadLeaderboard(){
+  const snapshot = await db.collection("scores")
+    .orderBy("score")
+    .limit(10)
+    .get();
+
+  let html = "<h4>🌍 Global Top 10</h4>";
+
+  snapshot.forEach((doc,i)=>{
+    const d = doc.data();
+    html += `${i+1}. ${d.name} - ${d.score} ms<br>`;
+  });
+
+  document.getElementById("leaderboard").innerHTML = html;
+}
+
+loadLeaderboard();
 </script>
 
 </body>

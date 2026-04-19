@@ -9,27 +9,26 @@
 const CONFIG = {
   name: "Ryan Parker",
 
-  /* 🔥 PRIMARY + BACKUP BACKGROUND */
+  /* ✅ YOUR ORIGINAL BACKGROUND LINK RESTORED */
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495541902693499081/IMG_0258_Original.jpg?ex=69e69f6f&is=69e54def&hm=7961f59d1cffdb960f7c2cd21bfba0cb1b581dd4c7255126416133c1e1a22477&",
-  fallbackBackground: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
 
-  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif",
+  video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
 
   links: [
     {
       title: "Instagram",
       url: "https://www.instagram.com/ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533229954961598/31.png?ex=69e6975b&is=69e545db&hm=831bcbf92361f47b35c3ccefdeb803634d49787fa22ee7cd0bf1b9c7a48ce1c1&"
     },
     {
       title: "TikTok",
       url: "https://www.tiktok.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533246962860082/32.png?ex=69e6975f&is=69e545df&hm=4d1d24c6b1b0c13eaae040d69933821a854a3b53ffe7352409285f6f8ed27646&"
     },
     {
       title: "YouTube",
       url: "https://www.youtube.com/@ryanparker2006",
-      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png"
+      icon: "https://cdn.discordapp.com/attachments/1495526722240778305/1495533263513452627/33.png?ex=69e69763&is=69e545e3&hm=8ee415ec59526b3f96ad22d1341ea67ed60d75875175402fd775f8b65a66db85&"
     }
   ]
 };
@@ -44,7 +43,7 @@ const CONFIG = {
   will-change: transform, opacity;
 }
 
-/* 🔥 RELIABLE BACKGROUND SYSTEM */
+/* ✅ FIXED MOBILE BACKGROUND */
 body {
   min-height: 100vh;
   display: flex;
@@ -260,7 +259,7 @@ input:checked + .slider::before {
 <div class="wrapper" id="app"></div>
 
 <script>
-/* 🔥 SMART BACKGROUND LOADER (FIXES PHONE ISSUE) */
+/* ✅ KEEP YOUR ORIGINAL IMAGE BUT FORCE LOAD */
 const img = new Image();
 img.src = CONFIG.background;
 
@@ -269,7 +268,7 @@ img.onload = () => {
 };
 
 img.onerror = () => {
-  document.body.style.setProperty('--bg', `url(${CONFIG.fallbackBackground})`);
+  console.error("Background failed to load");
 };
 
 /* media */

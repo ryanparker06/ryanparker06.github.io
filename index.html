@@ -12,7 +12,7 @@
 const CONFIG = {
   name: "Your Name",
 
-  background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495527142765760653/IMG_2274_Original.jpg?ex=69e691b0&is=69e54030&hm=b92a57046b87f40df44fdf7ead2c95f8594650cd36ccd7b3709d3a4b746bf83b&",
+  background: "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974",
 
   video: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=1&loop=1&playlist=dQw4w9WgXcQ",
 
@@ -50,14 +50,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* blur */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(12px);
 }
 
 /* WRAPPER */
@@ -112,7 +104,7 @@ body.light .glass {
     0 10px 40px rgba(0,0,0,0.4);
 }
 
-/* CARD (AUTO SIZE) */
+/* CARD */
 .card {
   padding: clamp(16px, 2vw, 24px);
   display: flex;
@@ -166,7 +158,7 @@ hr {
   background: rgba(255,255,255,0.3);
 }
 
-/* 🔥 PERFECT VIDEO FIT */
+/* VIDEO */
 .video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -201,6 +193,7 @@ hr {
   height: 42px;
   margin-right: 14px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .link span {
@@ -220,6 +213,7 @@ hr {
 <div class="wrapper" id="app"></div>
 
 <script>
+/* APPLY BACKGROUND */
 document.body.style.backgroundImage = `url(${CONFIG.background})`;
 
 const app = document.getElementById("app");
@@ -253,6 +247,7 @@ app.innerHTML = `
   </div>
 `;
 
+/* THEME SWITCH */
 const toggle = document.getElementById("themeToggle");
 
 toggle.addEventListener("change", () => {

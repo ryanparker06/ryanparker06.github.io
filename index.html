@@ -11,7 +11,6 @@ const CONFIG = {
 
   sectionTitle: "Social Media Links",
 
-  /* ✅ YOUR ORIGINAL LINK (UNCHANGED) */
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
 
   video: "https://cdn.discordapp.com/attachments/1495526722240778305/1495530787120877648/Ryan_Parker.gif?ex=69e69515&is=69e54395&hm=574f65649cb20cc160ea6fa153250ef455003f3179f4ab5b2d74ef7ec9aab56e&",
@@ -50,13 +49,13 @@ body {
   justify-content: center;
   align-items: center;
 
+  background: black; /* fallback */
   background-image: var(--bg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* wrapper */
 .wrapper {
   width: 100%;
   max-width: min(1400px, 95vw);
@@ -66,7 +65,6 @@ body {
   padding: 20px;
 }
 
-/* desktop */
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
@@ -85,7 +83,6 @@ body {
   gap: 14px;
 }
 
-/* glass */
 .glass {
   backdrop-filter: blur(25px);
   border-radius: 22px;
@@ -93,7 +90,6 @@ body {
   border: 1px solid rgba(255,255,255,0.15);
 }
 
-/* card */
 .card {
   padding: 20px;
   display: flex;
@@ -106,7 +102,6 @@ body {
   text-align: center;
 }
 
-/* title container */
 .section-title {
   display: flex;
   justify-content: center;
@@ -116,7 +111,6 @@ body {
   font-weight: 600;
 }
 
-/* media */
 .video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -131,7 +125,6 @@ body {
   object-fit: cover;
 }
 
-/* links */
 .link {
   display: flex;
   align-items: center;
@@ -164,11 +157,25 @@ body {
 <div class="wrapper" id="app"></div>
 
 <script>
-/* 🔥 FIX: REMOVE DISCORD TEMP PARAMS */
-const cleanBg = CONFIG.background.split("?")[0];
+/* 🔥 FORCE DISCORD IMAGE LOAD */
+function loadBackground(url) {
+  const img = new Image();
 
-/* apply background */
-document.body.style.setProperty('--bg', `url(${cleanBg})`);
+  img.onload = () => {
+    document.body.style.setProperty('--bg', `url(${url})`);
+  };
+
+  img.onerror = () => {
+    /* retry with cache bypass */
+    const retry = url + "&t=" + Date.now();
+    document.body.style.setProperty('--bg', `url(${retry})`);
+  };
+
+  img.src = url;
+}
+
+/* run */
+loadBackground(CONFIG.background);
 
 /* media */
 const isGif = CONFIG.video.toLowerCase().includes(".gif");

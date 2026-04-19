@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>My Page</title>
-
-<style>
 * { box-sizing: border-box; }
 
 :root {
@@ -29,15 +22,17 @@ body {
   background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") center/cover no-repeat;
 }
 
-/* blur + glow layer */
+/* HEAVY blur + lighting (THIS IS IMPORTANT) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(25px);
+
+  backdrop-filter: blur(35px);
+
   background:
-    radial-gradient(circle at 50% 30%, rgba(255,255,255,0.15), transparent 60%),
-    radial-gradient(circle at 80% 80%, rgba(255,150,50,0.2), transparent 60%);
+    radial-gradient(circle at 70% 80%, rgba(255,140,60,0.25), transparent 60%),
+    radial-gradient(circle at 20% 30%, rgba(100,180,255,0.2), transparent 60%);
 }
 
 /* ------------------ */
@@ -49,20 +44,20 @@ body::before {
 }
 
 /* ------------------ */
-/* GLASS CARD */
+/* CARD */
 /* ------------------ */
 .card {
   position: relative;
-  padding: 30px;
+  padding: 32px;
   border-radius: 26px;
 
-  background: var(--glass);
-  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(25px);
 
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.2);
 
   box-shadow:
-    0 10px 40px rgba(0,0,0,0.5),
+    0 20px 60px rgba(0,0,0,0.6),
     inset 0 1px 0 rgba(255,255,255,0.25);
 
   text-align: center;
@@ -74,12 +69,12 @@ body::before {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  pointer-events: none;
-  box-shadow: inset 0 0 25px rgba(255,255,255,0.15);
+
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.12);
 }
 
 .card + .card {
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 /* ------------------ */
@@ -95,13 +90,12 @@ h1 {
 /* SWITCH */
 /* ------------------ */
 .switch {
-  margin: 18px auto;
+  margin: 20px auto;
   width: 54px;
   height: 28px;
   background: rgba(255,255,255,0.25);
   border-radius: 50px;
   position: relative;
-  cursor: pointer;
 }
 
 .switch::before {
@@ -113,11 +107,6 @@ h1 {
   border-radius: 50%;
   top: 3px;
   left: 4px;
-  transition: .3s;
-}
-
-body.light .switch::before {
-  transform: translateX(26px);
 }
 
 /* ------------------ */
@@ -140,9 +129,11 @@ body.light .switch::before {
 /* VIDEO */
 /* ------------------ */
 .video-wrapper {
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.7);
 }
 
 iframe {
@@ -160,8 +151,8 @@ iframe {
   align-items: center;
   justify-content: space-between;
 
-  padding: 18px;
-  margin: 14px 0;
+  padding: 18px 20px;
+  margin: 16px 0;
 
   border-radius: 18px;
 
@@ -169,7 +160,7 @@ iframe {
   border: 1px solid rgba(255,255,255,0.2);
 
   box-shadow:
-    0 8px 25px rgba(0,0,0,0.45),
+    0 12px 30px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.2);
 
   text-decoration: none;
@@ -185,9 +176,10 @@ iframe {
 
 /* ICON BOX */
 .icon-box {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border-radius: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,19 +206,20 @@ iframe {
   background: linear-gradient(180deg,#ff3d3d,#c40000);
 }
 
-/* GLOW */
+/* glow behind icons */
 .icon-box::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
+
   filter: blur(14px);
   opacity: 0.5;
 }
 
-.instagram::after { background: #dd2a7b; }
-.tiktok::after { background: #00f2ea; }
-.youtube::after { background: #ff0000; }
+.instagram::after { background:#dd2a7b; }
+.tiktok::after { background:#00f2ea; }
+.youtube::after { background:#ff0000; }
 
 /* TEXT */
 .label {
@@ -258,65 +251,3 @@ iframe {
     height: 200px;
   }
 }
-
-</style>
-</head>
-
-<body>
-
-<div class="wrapper">
-
-  <!-- TOP CARD -->
-  <div class="card">
-
-    <h1>Your Name</h1>
-
-    <div class="switch"></div>
-
-    <div class="separator"></div>
-
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    </div>
-
-  </div>
-
-  <!-- BUTTON CARD -->
-  <div class="card">
-
-    <a href="#" class="btn-box">
-      <div class="left">
-        <div class="icon-box instagram">
-          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon">
-        </div>
-        <div class="label">Instagram</div>
-      </div>
-      <div class="arrow">›</div>
-    </a>
-
-    <a href="#" class="btn-box">
-      <div class="left">
-        <div class="icon-box tiktok">
-          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="icon">
-        </div>
-        <div class="label">TikTok</div>
-      </div>
-      <div class="arrow">›</div>
-    </a>
-
-    <a href="#" class="btn-box">
-      <div class="left">
-        <div class="icon-box youtube">
-          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon">
-        </div>
-        <div class="label">YouTube</div>
-      </div>
-      <div class="arrow">›</div>
-    </a>
-
-  </div>
-
-</div>
-
-</body>
-</html>

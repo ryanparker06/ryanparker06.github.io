@@ -48,12 +48,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   background: black;
   background-image: var(--bg);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
+/* 🔥 FIXED CENTERING */
 .wrapper {
   width: 100%;
   max-width: 1100px;
@@ -61,11 +64,14 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  margin: auto;
 }
 
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
+    justify-content: center;   /* center horizontally */
+    align-items: center;       /* center vertically */
     gap: 60px;
   }
 
@@ -101,8 +107,10 @@ body {
 }
 
 .divider {
+  width: 100%;
   height: 1px;
   background: rgba(255,255,255,0.25);
+  margin: 6px 0;
 }
 
 .section-title {
@@ -115,11 +123,13 @@ body {
 }
 
 .video {
+  width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 14px;
   overflow: hidden;
 }
 
+.video video,
 .video img {
   width: 100%;
   height: 100%;
@@ -137,40 +147,18 @@ body {
 
 .link img {
   width: 42px;
+  height: 42px;
   margin-right: 14px;
   border-radius: 10px;
+}
+
+.link span {
+  flex: 1;
 }
 
 .arrow {
   font-size: 22px;
   opacity: 0.6;
-}
-
-/* GAME */
-.game-container {
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
-
-.game-box {
-  height: 200px;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.4);
-  font-size: 20px;
-  gap: 10px;
-  cursor: pointer;
-}
-
-button {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
 }
 </style>
 </head>
@@ -182,112 +170,54 @@ button {
 <script>
 function loadBackground(url) {
   const img = new Image();
+
   img.onload = () => {
     document.body.style.setProperty('--bg', `url(${url})`);
   };
+
+  img.onerror = () => {
+    const retry = url + "&t=" + Date.now();
+    document.body.style.setProperty('--bg', `url(${retry})`);
+  };
+
   img.src = url;
 }
 
 loadBackground(CONFIG.background);
 
-const mediaElement = `<img src="${CONFIG.video}" />`;
+const isGif = CONFIG.video.toLowerCase().includes(".gif");
+
+const mediaElement = isGif
+  ? `<img src="${CONFIG.video}" />`
+  : `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
 
 const app = document.getElementById("app");
 
 app.innerHTML = `
-<div class="left">
-  <div class="card glass">
-    <h1>${CONFIG.name}</h1>
-    <div class="divider"></div>
-    <div class="video">${mediaElement}</div>
-  </div>
-</div>
-
-<div class="right">
-  <div class="section-title glass">${CONFIG.sectionTitle}</div>
-
-  ${CONFIG.links.map(link => `
-    <div class="link glass" onclick="window.open('${link.url}', '_blank')">
-      <img src="${link.icon}">
-      <span>${link.title}</span>
-      <div class="arrow">›</div>
+  <div class="left">
+    <div class="card glass">
+      <h1>${CONFIG.name}</h1>
+      <div class="divider"></div>
+      <div class="video">
+        ${mediaElement}
+      </div>
     </div>
-  `).join("")}
+  </div>
 
-  <!-- GAME -->
-  <div class="game-container glass">
-    <h3>⚡ Reaction Game</h3>
-
-    <div id="gameBox" class="game-box">
-      <div id="gameText">Click Start</div>
-      <button id="startBtn">Start</button>
-      <button id="playAgainBtn" style="display:none;">Play Again</button>
+  <div class="right">
+    <div class="section-title glass">
+      ${CONFIG.sectionTitle}
     </div>
 
-    <div id="result"></div>
+    ${CONFIG.links.map(link => `
+      <div class="link glass" onclick="window.open('${link.url}', '_blank')">
+        <img src="${link.icon}">
+        <span>${link.title}</span>
+        <div class="arrow">›</div>
+      </div>
+    `).join("")}
   </div>
-</div>
 `;
-
-/* GAME */
-let startTime, ready = false, waiting = false;
-
-const gameBox = document.getElementById("gameBox");
-const gameText = document.getElementById("gameText");
-const result = document.getElementById("result");
-const playAgainBtn = document.getElementById("playAgainBtn");
-
-document.getElementById("startBtn").onclick = startGame;
-playAgainBtn.onclick = resetGame;
-
-function startGame(){
-  gameText.innerText = "Wait...";
-  result.innerText = "";
-  playAgainBtn.style.display = "none";
-  gameBox.style.background = "rgba(0,0,0,0.4)";
-
-  ready = false;
-  waiting = true;
-
-  setTimeout(()=>{
-    if(Math.random()<0.3){
-      gameBox.style.background = "red";
-      gameText.innerText = "DON'T TAP!";
-      ready = false;
-    } else {
-      gameBox.style.background = "lime";
-      gameText.innerText = "TAP!";
-      startTime = Date.now();
-      ready = true;
-    }
-    waiting = false;
-  }, Math.random()*3000 + 1500);
-}
-
-gameBox.onclick = ()=>{
-  if(waiting){
-    result.innerText = "Too early!";
-    playAgainBtn.style.display = "inline-block";
-    return;
-  }
-
-  if(!ready){
-    result.innerText = "Fake!";
-    playAgainBtn.style.display = "inline-block";
-    return;
-  }
-
-  const time = Date.now() - startTime;
-  result.innerText = time + " ms";
-  playAgainBtn.style.display = "inline-block";
-};
-
-function resetGame(){
-  gameBox.style.background = "rgba(0,0,0,0.4)";
-  gameText.innerText = "Click Start";
-  result.innerText = "";
-  playAgainBtn.style.display = "none";
-}
 </script>
 
 </body>

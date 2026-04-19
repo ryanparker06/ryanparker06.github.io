@@ -180,6 +180,7 @@ app.innerHTML = `
   <div id="game" class="game-box">Press Start</div>
   <button id="startBtn">Start</button>
   <div id="result"></div>
+  <button id="playAgain" style="display:none;">Play Again</button>
   <div id="leaderboard" class="leaderboard"></div>
 </div>
 `;
@@ -196,10 +197,14 @@ let startTime, waiting, ready;
 
 const gameBox = document.getElementById("game");
 const result = document.getElementById("result");
+const playAgainBtn = document.getElementById("playAgain");
 
 document.getElementById("startBtn").onclick = () => {
   gameBox.innerText = "Wait...";
   gameBox.style.background = "rgba(0,0,0,0.3)";
+  result.innerText = "";
+  playAgainBtn.style.display = "none";
+
   ready = false;
   waiting = true;
 
@@ -221,18 +226,29 @@ document.getElementById("startBtn").onclick = () => {
 gameBox.onclick = ()=>{
   if(waiting){
     result.innerText="Too early!";
+    playAgainBtn.style.display = "inline-block";
     return;
   }
 
   if(!ready){
     result.innerText="💀 Fake out!";
+    playAgainBtn.style.display = "inline-block";
     return;
   }
 
   const time = Date.now() - startTime;
   result.innerText = `${time} ms`;
+  playAgainBtn.style.display = "inline-block";
 
   saveScore(time);
+};
+
+/* PLAY AGAIN RESET */
+playAgainBtn.onclick = () => {
+  gameBox.innerText = "Press Start";
+  gameBox.style.background = "rgba(0,0,0,0.3)";
+  result.innerText = "";
+  playAgainBtn.style.display = "none";
 };
 
 /* SAVE BEST SCORE ONLY */

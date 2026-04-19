@@ -81,13 +81,19 @@ body {
   gap: clamp(12px, 2vw, 18px);
 }
 
-/* 🔥 NEW HEADER CONTAINER */
+/* 🔥 CENTERED TITLE */
 .section-title {
-  padding: 14px;
-  border-radius: 20px;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+
+  padding: 18px;
+  border-radius: 20px;
+
+  color: white;
   font-weight: 600;
+  font-size: 18px;
   letter-spacing: 0.5px;
 }
 
@@ -222,6 +228,7 @@ hr {
 <script>
 document.body.style.backgroundImage = `url(${CONFIG.background})`;
 
+/* AUTO DETECT GIF OR VIDEO */
 const isGif = CONFIG.video.toLowerCase().includes(".gif");
 
 const mediaElement = isGif
@@ -249,8 +256,6 @@ app.innerHTML = `
   </div>
 
   <div class="right">
-
-    <!-- 🔥 NEW TITLE CONTAINER -->
     <div class="section-title glass">
       Social Media Links
     </div>

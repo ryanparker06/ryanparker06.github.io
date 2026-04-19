@@ -6,10 +6,6 @@
 <title>Glass UI</title>
 
 <script>
-/* =========================
-   🔧 CONFIG (EDIT HERE ONLY)
-   ========================= */
-
 const CONFIG = {
   name: "Your Name",
 
@@ -47,46 +43,54 @@ const CONFIG = {
 
 body {
   background: center/cover no-repeat;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
 }
 
-/* blur overlay */
+/* blur */
 body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   backdrop-filter: blur(12px);
 }
 
-/* 🔥 RESPONSIVE WRAPPER */
+/* 🔥 FULLSCREEN WRAPPER */
 .wrapper {
+  width: 100vw;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 3vw, 40px);
-  padding: clamp(12px, 3vw, 40px);
+
+  gap: clamp(16px, 3vw, 32px);
+  padding: clamp(16px, 4vw, 48px);
 }
 
 /* DESKTOP */
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
   }
 
   .left,
   .right {
-    width: clamp(280px, 25vw, 360px);
-  }
-
-  .right {
+    flex: 1; /* 🔥 fills space */
     display: flex;
-    flex-direction: column;
-    gap: clamp(12px, 2vw, 24px);
+    justify-content: center;
   }
+}
+
+/* CONTENT WIDTH CONTROL */
+.inner {
+  width: 100%;
+  max-width: 420px; /* prevents stretching */
+}
+
+/* RIGHT STACK */
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 20px);
 }
 
 /* THEMES */
@@ -163,11 +167,17 @@ hr {
   margin: 18px 0;
 }
 
-/* video */
+/* VIDEO FIX */
+.video {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
 .video iframe {
   width: 100%;
   height: 180px;
-  border-radius: 14px;
+  border: none;
+  display: block;
 }
 
 /* LINKS */
@@ -190,12 +200,10 @@ hr {
   height: 42px;
   margin-right: 14px;
   border-radius: 10px;
-  object-fit: cover;
 }
 
 .link span {
   flex: 1;
-  font-size: 17px;
 }
 
 .arrow {
@@ -210,41 +218,43 @@ hr {
 <div class="wrapper" id="app"></div>
 
 <script>
-/* APPLY BACKGROUND */
 document.body.style.backgroundImage = `url(${CONFIG.background})`;
 
 const app = document.getElementById("app");
 
 app.innerHTML = `
   <div class="left">
-    <div class="card glass">
-      <h1>${CONFIG.name}</h1>
+    <div class="inner">
+      <div class="card glass">
+        <h1>${CONFIG.name}</h1>
 
-      <label class="switch">
-        <input type="checkbox" id="themeToggle">
-        <div class="slider"></div>
-      </label>
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <div class="slider"></div>
+        </label>
 
-      <hr>
+        <hr>
 
-      <div class="video">
-        <iframe src="${CONFIG.video}"></iframe>
+        <div class="video">
+          <iframe src="${CONFIG.video}"></iframe>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="right">
-    ${CONFIG.links.map(link => `
-      <div class="link glass" onclick="window.open('${link.url}', '_blank')">
-        <img src="${link.icon}">
-        <span>${link.title}</span>
-        <div class="arrow">›</div>
-      </div>
-    `).join("")}
+    <div class="inner">
+      ${CONFIG.links.map(link => `
+        <div class="link glass" onclick="window.open('${link.url}', '_blank')">
+          <img src="${link.icon}">
+          <span>${link.title}</span>
+          <div class="arrow">›</div>
+        </div>
+      `).join("")}
+    </div>
   </div>
 `;
 
-/* THEME SWITCH */
 const toggle = document.getElementById("themeToggle");
 
 toggle.addEventListener("change", () => {

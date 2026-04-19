@@ -5,6 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glass UI</title>
 
+<script>
+/* =========================
+   🔧 CONFIG (EDIT HERE ONLY)
+   ========================= */
+
+const CONFIG = {
+  name: "Your Name",
+
+  background: "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974",
+
+  video: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=1&loop=1&playlist=dQw4w9WgXcQ",
+
+  links: [
+    {
+      title: "Instagram",
+      url: "https://instagram.com",
+      icon: "https://cdn-icons-png.flaticon.com/512/15713/15713420.png"
+    },
+    {
+      title: "TikTok",
+      url: "https://tiktok.com",
+      icon: "https://cdn-icons-png.flaticon.com/512/15713/15713417.png"
+    },
+    {
+      title: "YouTube",
+      url: "https://youtube.com",
+      icon: "https://cdn-icons-png.flaticon.com/512/15713/15713428.png"
+    }
+  ]
+};
+</script>
+
 <style>
 * {
   margin: 0;
@@ -14,8 +46,7 @@
 }
 
 body {
-  --bg-url: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974');
-  background: var(--bg-url) center/cover no-repeat;
+  background: center/cover no-repeat;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -88,7 +119,6 @@ body.light .glass {
   cursor: pointer;
 }
 
-/* 🔥 NOW CIRCULAR */
 .slider::before {
   content: "";
   width: 20px;
@@ -97,7 +127,7 @@ body.light .glass {
   position: absolute;
   top: 3px;
   left: 3px;
-  border-radius: 50%; /* FIXED */
+  border-radius: 50%;
   transition: 0.3s;
 }
 
@@ -137,7 +167,6 @@ hr {
   transform: translateY(-3px);
 }
 
-/* REAL SQUARE ICONS */
 .link img {
   width: 42px;
   height: 42px;
@@ -160,10 +189,18 @@ hr {
 
 <body class="dark">
 
-<div class="container">
+<div class="container" id="app"></div>
 
+<script>
+/* APPLY BACKGROUND */
+document.body.style.backgroundImage = `url(${CONFIG.background})`;
+
+/* BUILD UI */
+const app = document.getElementById("app");
+
+app.innerHTML = `
   <div class="card glass">
-    <h1>Your Name</h1>
+    <h1>${CONFIG.name}</h1>
 
     <label class="switch">
       <input type="checkbox" id="themeToggle">
@@ -172,56 +209,27 @@ hr {
 
     <hr>
 
-    <!-- 🔥 AUTOPLAY VIDEO -->
     <div class="video">
-      <iframe 
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=1&loop=1&playlist=dQw4w9WgXcQ">
-      </iframe>
+      <iframe src="${CONFIG.video}"></iframe>
     </div>
   </div>
 
-  <div class="link glass" onclick="go('https://instagram.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713420.png">
-    <span>Instagram</span>
-    <div class="arrow">›</div>
-  </div>
-
-  <div class="link glass" onclick="go('https://tiktok.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713417.png">
-    <span>TikTok</span>
-    <div class="arrow">›</div>
-  </div>
-
-  <div class="link glass" onclick="go('https://youtube.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713428.png">
-    <span>YouTube</span>
-    <div class="arrow">›</div>
-  </div>
-
-</div>
-
-<script>
-function go(url){
-  window.open(url, "_blank");
-}
+  ${CONFIG.links.map(link => `
+    <div class="link glass" onclick="window.open('${link.url}', '_blank')">
+      <img src="${link.icon}">
+      <span>${link.title}</span>
+      <div class="arrow">›</div>
+    </div>
+  `).join("")}
+`;
 
 /* THEME SWITCH */
 const toggle = document.getElementById("themeToggle");
 
 toggle.addEventListener("change", () => {
-  if (toggle.checked) {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-  } else {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-  }
+  document.body.classList.toggle("light", toggle.checked);
+  document.body.classList.toggle("dark", !toggle.checked);
 });
-
-/* CHANGE BACKGROUND */
-function setBackground(url){
-  document.body.style.setProperty('--bg-url', `url(${url})`);
-}
 </script>
 
 </body>

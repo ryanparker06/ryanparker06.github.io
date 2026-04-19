@@ -73,7 +73,6 @@ body {
   animation: fadeUp 0.8s ease forwards;
 }
 
-/* space between cards */
 .card + .card {
   margin-top: 20px;
 }
@@ -90,7 +89,7 @@ h1 {
 /* SWITCH */
 /* ------------------ */
 .switch {
-  margin: 15px auto;
+  margin: 15px auto 10px;
   width: 50px;
   height: 26px;
   background: rgba(255,255,255,0.3);
@@ -121,12 +120,27 @@ body.light .switch::before {
 }
 
 /* ------------------ */
-/* VIDEO */
+/* SEPARATOR */
 /* ------------------ */
+.separator {
+  height: 1px;
+  background: var(--border);
+  margin: 15px 0;
+}
+
+/* ------------------ */
+/* VIDEO FIX */
+/* ------------------ */
+.video-wrapper {
+  border-radius: 14px;
+  overflow: hidden; /* fixes white edge */
+}
+
 iframe {
   width: 100%;
   height: 260px;
-  border-radius: 14px;
+  border: none;
+  display: block; /* removes inline gap */
 
   opacity: 0;
   transform: translateY(20px);
@@ -158,7 +172,6 @@ iframe {
   animation: fadeUp 0.6s ease forwards;
 }
 
-/* stagger animation */
 .btn-box:nth-child(1) { animation-delay: 0.2s; }
 .btn-box:nth-child(2) { animation-delay: 0.3s; }
 .btn-box:nth-child(3) { animation-delay: 0.4s; }
@@ -178,7 +191,7 @@ iframe {
   font-size: 16px;
 }
 
-/* Hover (desktop only) */
+/* Hover desktop only */
 @media (hover: hover) {
   .btn-box:hover {
     transform: translateY(-4px);
@@ -267,7 +280,13 @@ iframe {
 
     <div class="switch" onclick="toggleTheme()"></div>
 
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+    <!-- NEW SEPARATOR -->
+    <div class="separator"></div>
+
+    <!-- VIDEO FIXED -->
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+    </div>
 
   </div>
 
@@ -313,7 +332,6 @@ function toggleTheme() {
   }
 }
 
-// Load saved theme
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("light");
 }

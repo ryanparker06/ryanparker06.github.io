@@ -1,253 +1,204 @@
-* { box-sizing: border-box; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glass UI</title>
 
-:root {
-  --glass: rgba(255,255,255,0.08);
-  --border: rgba(255,255,255,0.25);
-  --text: #fff;
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* ------------------ */
-/* BACKGROUND */
-/* ------------------ */
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  color: var(--text);
-
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974') no-repeat center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") center/cover no-repeat;
 }
 
-/* HEAVY blur + lighting (THIS IS IMPORTANT) */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-
-  backdrop-filter: blur(35px);
-
-  background:
-    radial-gradient(circle at 70% 80%, rgba(255,140,60,0.25), transparent 60%),
-    radial-gradient(circle at 20% 30%, rgba(100,180,255,0.2), transparent 60%);
+/* Container */
+.container {
+  width: 320px;
 }
 
-/* ------------------ */
-/* WRAPPER */
-/* ------------------ */
-.wrapper {
-  width: 92%;
-  max-width: 720px;
-}
-
-/* ------------------ */
-/* CARD */
-/* ------------------ */
+/* Glass Card */
 .card {
-  position: relative;
-  padding: 32px;
-  border-radius: 26px;
-
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(25px);
-
+  padding: 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255,255,255,0.2);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.25);
-
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   text-align: center;
+  margin-bottom: 20px;
 }
 
-/* glow edge */
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-
-  box-shadow: inset 0 0 30px rgba(255,255,255,0.12);
-}
-
-.card + .card {
-  margin-top: 30px;
-}
-
-/* ------------------ */
-/* TITLE */
-/* ------------------ */
-h1 {
-  margin: 0;
-  font-size: 30px;
+/* Title */
+.card h1 {
+  color: #fff;
+  margin-bottom: 15px;
   font-weight: 600;
 }
 
-/* ------------------ */
-/* SWITCH */
-/* ------------------ */
-.switch {
-  margin: 20px auto;
-  width: 54px;
-  height: 28px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 50px;
-  position: relative;
+/* Divider */
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 20px 0;
 }
 
-.switch::before {
+/* Video */
+.video iframe {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+}
+
+/* Toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background: rgba(255,255,255,0.3);
+  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.slider:before {
   content: "";
   position: absolute;
-  width: 22px;
-  height: 22px;
-  background: #fff;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 2.5px;
+  background: white;
   border-radius: 50%;
-  top: 3px;
-  left: 4px;
+  transition: 0.3s;
 }
 
-/* ------------------ */
-/* SEPARATOR */
-/* ------------------ */
-.separator {
-  height: 2px;
-  margin: 15px 0;
-  border-radius: 2px;
-
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255,255,255,0.5),
-    transparent
-  );
+input:checked + .slider {
+  background: rgba(255,255,255,0.6);
 }
 
-/* ------------------ */
-/* VIDEO */
-/* ------------------ */
-.video-wrapper {
-  border-radius: 18px;
-  overflow: hidden;
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.7);
+input:checked + .slider:before {
+  transform: translateX(24px);
 }
 
-iframe {
-  width: 100%;
-  height: 260px;
-  border: none;
-  display: block;
-}
-
-/* ------------------ */
-/* BUTTON */
-/* ------------------ */
-.btn-box {
+/* Link Cards */
+.link-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 18px 20px;
-  margin: 16px 0;
-
+  padding: 15px;
+  margin-bottom: 15px;
   border-radius: 18px;
-
+  backdrop-filter: blur(15px);
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.2);
-
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-
-  text-decoration: none;
-  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-/* LEFT */
-.left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.link-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.15);
 }
 
-/* ICON BOX */
-.icon-box {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
+.link-card img {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
 }
 
-/* ICON */
-.icon {
-  width: 24px;
-  z-index: 2;
+.link-card span {
+  flex: 1;
+  font-size: 16px;
 }
 
-/* BRAND COLORS */
-.instagram {
-  background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af);
-}
-
-.tiktok {
-  background: #0f0f0f;
-}
-
-.youtube {
-  background: linear-gradient(180deg,#ff3d3d,#c40000);
-}
-
-/* glow behind icons */
-.icon-box::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-
-  filter: blur(14px);
-  opacity: 0.5;
-}
-
-.instagram::after { background:#dd2a7b; }
-.tiktok::after { background:#00f2ea; }
-.youtube::after { background:#ff0000; }
-
-/* TEXT */
-.label {
-  font-size: 18px;
-  font-weight: 500;
-}
-
-/* ARROW */
 .arrow {
   font-size: 22px;
-  opacity: 0.6;
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <h1>Your Name</h1>
+
+    <label class="switch">
+      <input type="checkbox" id="toggle">
+      <span class="slider"></span>
+    </label>
+
+    <hr>
+
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              frameborder="0"
+              allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="link-card" onclick="openLink('https://instagram.com')">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+    <span>Instagram</span>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="link-card" onclick="openLink('https://tiktok.com')">
+    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    <span>TikTok</span>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="link-card" onclick="openLink('https://youtube.com')">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+    <span>YouTube</span>
+    <span class="arrow">›</span>
+  </div>
+
+</div>
+
+<script>
+function openLink(url) {
+  window.open(url, "_blank");
 }
 
-/* CLICK */
-.btn-box:active {
-  transform: scale(0.97);
-}
-
-/* ------------------ */
-/* MOBILE */
-/* ------------------ */
-@media (max-width:600px){
-  body {
-    align-items: flex-start;
-    padding: 20px 10px;
+// Optional toggle effect (just for demo)
+document.getElementById("toggle").addEventListener("change", function() {
+  if (this.checked) {
+    document.body.style.filter = "brightness(1.2)";
+  } else {
+    document.body.style.filter = "brightness(1)";
   }
+});
+</script>
 
-  iframe {
-    height: 200px;
-  }
-}
+</body>
+</html>

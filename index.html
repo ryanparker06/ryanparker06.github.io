@@ -5,139 +5,189 @@
 <title>My Page</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
+/* ------------------ */
+/* THEME VARIABLES */
+/* ------------------ */
+:root {
+  --bg-overlay: rgba(255,255,255,0.08);
+  --text: white;
+  --border: rgba(255,255,255,0.25);
+  --btn-bg: rgba(255,255,255,0.06);
+}
+
+body.light {
+  --bg-overlay: rgba(255,255,255,0.7);
+  --text: #111;
+  --border: rgba(0,0,0,0.15);
+  --btn-bg: rgba(255,255,255,0.6);
+}
+
+/* ------------------ */
+/* BODY */
+/* ------------------ */
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
+  color: var(--text);
 
   background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") no-repeat center/cover;
 }
 
-/* Container */
+/* ------------------ */
+/* CONTAINER */
+/* ------------------ */
 .container {
-  width: 95%;
-  max-width: 700px;
+  width: 92%;
+  max-width: 900px;
   padding: 30px;
 
-  border-radius: 20px;
+  border-radius: 22px;
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
+  background: var(--bg-overlay);
+  backdrop-filter: blur(14px);
 
-  border: 1px solid rgba(255,255,255,0.25);
-  color: white;
+  border: 1px solid var(--border);
   text-align: center;
 }
 
-/* Title */
+/* ------------------ */
+/* PROFILE */
+/* ------------------ */
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+  margin-bottom: 10px;
+}
+
+/* ------------------ */
+/* TITLE */
+/* ------------------ */
 h1 {
-  margin: 0;
+  margin: 5px 0 0;
+  font-size: 26px;
 }
 
-/* Spacing system */
-.section {
-  margin: 20px 0;
+/* ------------------ */
+/* TOGGLE */
+/* ------------------ */
+.toggle {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-/* Separator */
-.separator {
-  height: 1px;
-  background: rgba(255,255,255,0.3);
+/* ------------------ */
+/* GRID LAYOUT */
+/* ------------------ */
+.main {
+  margin-top: 20px;
 }
 
-/* Video */
+/* Default (mobile) */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Desktop split */
+@media (min-width: 850px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 30px;
+    text-align: left;
+  }
+}
+
+/* ------------------ */
+/* VIDEO */
+/* ------------------ */
 iframe {
   width: 100%;
-  height: 230px;
-  border-radius: 12px;
+  height: 260px;
+  border-radius: 14px;
 }
 
-/* Button */
+/* ------------------ */
+/* BUTTON */
+/* ------------------ */
 .btn-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 16px;
-  margin: 14px 0;
+  margin: 12px 0;
 
   border-radius: 16px;
 
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.25);
-
-  backdrop-filter: blur(10px);
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
 
   text-decoration: none;
-  color: white;
+  color: var(--text);
 
-  position: relative;
-  overflow: hidden;
-
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-/* Left side (icon + text) */
+/* Left */
 .left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Icon inside button */
 .icon {
   width: 30px;
   height: 30px;
 }
 
-/* Text */
 .label {
   font-size: 16px;
 }
 
+/* Hover */
+@media (hover: hover) {
+  .btn-box:hover {
+    transform: translateY(-4px);
+  }
+
+  .btn-box:hover span {
+    transform: translateX(6px);
+  }
+}
+
 /* Arrow */
 .btn-box span {
-  transition: transform 0.2s ease;
+  transition: 0.2s;
 }
 
-/* Hover */
-.btn-box:hover {
-  transform: translateY(-4px) scale(1.02);
-  background: rgba(0,0,0,0.25);
-}
+/* ------------------ */
+/* MOBILE */
+/* ------------------ */
+@media (max-width: 600px) {
+  iframe {
+    height: 200px;
+  }
 
-/* Arrow move */
-.btn-box:hover span {
-  transform: translateX(6px);
-}
-
-/* Click */
-.btn-box:active {
-  transform: scale(0.96);
-}
-
-/* Ripple */
-.btn-box::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  background: rgba(255,255,255,0.25);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-
-.btn-box:active::after {
-  width: 200px;
-  height: 200px;
-  opacity: 1;
-  transition: 0.4s;
+  .profile-img {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 </style>
@@ -147,46 +197,70 @@ iframe {
 
 <div class="container">
 
+  <!-- PROFILE -->
+  <img src="https://i.pravatar.cc/150" class="profile-img">
   <h1>Your Name</h1>
 
-  <div class="section separator"></div>
+  <div class="toggle" onclick="toggleTheme()">Toggle Light/Dark</div>
 
-  <div class="section">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+  <!-- MAIN GRID -->
+  <div class="main grid">
+
+    <!-- LEFT (LINKS) -->
+    <div>
+
+      <a href="#" class="btn-box">
+        <div class="left">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon">
+          <div class="label">Instagram</div>
+        </div>
+        <span>›</span>
+      </a>
+
+      <a href="#" class="btn-box">
+        <div class="left">
+          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="icon">
+          <div class="label">TikTok</div>
+        </div>
+        <span>›</span>
+      </a>
+
+      <a href="#" class="btn-box">
+        <div class="left">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon">
+          <div class="label">YouTube</div>
+        </div>
+        <span>›</span>
+      </a>
+
+    </div>
+
+    <!-- RIGHT (VIDEO) -->
+    <div>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+    </div>
+
   </div>
 
-  <div class="section separator"></div>
-
-  <!-- Instagram -->
-  <a href="#" class="btn-box">
-    <div class="left">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon">
-      <div class="label">Instagram</div>
-    </div>
-    <span>›</span>
-  </a>
-
-  <!-- TikTok -->
-  <a href="#" class="btn-box">
-    <div class="left">
-      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="icon">
-      <div class="label">TikTok</div>
-    </div>
-    <span>›</span>
-  </a>
-
-  <!-- YouTube -->
-  <a href="#" class="btn-box">
-    <div class="left">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon">
-      <div class="label">YouTube</div>
-    </div>
-    <span>›</span>
-  </a>
-
-  <div class="section separator"></div>
-
 </div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("light");
+
+  // Save preference
+  if (document.body.classList.contains("light")) {
+    localStorage.setItem("theme", "light");
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+// Load saved theme
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light");
+}
+</script>
 
 </body>
 </html>

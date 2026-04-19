@@ -8,7 +8,6 @@
 <script>
 const CONFIG = {
   name: "Ryan Parker",
-
   sectionTitle: "Social Media Links",
 
   background: "https://cdn.discordapp.com/attachments/1495526722240778305/1495546898751422615/IMG_0258_Original.jpg?ex=69e6a416&is=69e55296&hm=667e5561555971bf7ed2ff6cc32c81ee759bf416581e6d819a27cece1d343166&",
@@ -36,129 +35,65 @@ const CONFIG = {
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
 body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  margin:0;
+  font-family: sans-serif;
   background: black;
   background-image: var(--bg);
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
 
-/* 🔥 FIXED CENTERING */
 .wrapper {
-  width: 100%;
-  max-width: 1100px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  margin: auto;
+  max-width:1100px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  padding:20px;
 }
 
-@media (min-width: 900px) {
-  .wrapper {
-    flex-direction: row;
-    justify-content: center;   /* center horizontally */
-    align-items: center;       /* center vertically */
-    gap: 60px;
-  }
-
-  .left, .right {
-    width: 100%;
-    max-width: 480px;
-  }
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+@media(min-width:900px){
+  .wrapper {flex-direction:row; justify-content:center; align-items:center;}
 }
 
 .glass {
   backdrop-filter: blur(25px);
-  border-radius: 22px;
   background: rgba(20,20,25,0.5);
-  border: 1px solid rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:20px;
 }
 
-.card {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.card {padding:20px; text-align:center; color:white;}
+
+.divider {height:1px;background:rgba(255,255,255,0.3);margin:10px 0;}
+
+.video {aspect-ratio:16/9; overflow:hidden; border-radius:10px;}
+.video img {width:100%; height:100%; object-fit:cover;}
+
+.right {display:flex; flex-direction:column; gap:12px;}
+
+.link {display:flex; align-items:center; padding:12px; color:white; cursor:pointer;}
+.link img {width:40px; margin-right:10px; border-radius:8px;}
+.link span {flex:1;}
+
+.section-title {text-align:center; color:white; padding:10px;}
+
+canvas {
+  width:100%;
+  height:200px;
+  background:rgba(0,0,0,0.3);
+  border-radius:10px;
 }
 
-.card h1 {
-  color: white;
-  text-align: center;
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(255,255,255,0.25);
-  margin: 6px 0;
-}
-
-.section-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 56px;
-  color: white;
-  font-weight: 600;
-}
-
-.video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.video video,
-.video img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-}
-
-.link img {
-  width: 42px;
-  height: 42px;
-  margin-right: 14px;
-  border-radius: 10px;
-}
-
-.link span {
-  flex: 1;
-}
-
-.arrow {
-  font-size: 22px;
-  opacity: 0.6;
+/* leaderboard */
+.leaderboard {
+  color:white;
+  font-size:14px;
+  text-align:left;
 }
 </style>
 </head>
@@ -168,56 +103,141 @@ body {
 <div class="wrapper" id="app"></div>
 
 <script>
-function loadBackground(url) {
-  const img = new Image();
+document.body.style.setProperty('--bg', `url(${CONFIG.background})`);
 
-  img.onload = () => {
-    document.body.style.setProperty('--bg', `url(${url})`);
-  };
+const isGif = CONFIG.video.includes(".gif");
 
-  img.onerror = () => {
-    const retry = url + "&t=" + Date.now();
-    document.body.style.setProperty('--bg', `url(${retry})`);
-  };
-
-  img.src = url;
-}
-
-loadBackground(CONFIG.background);
-
-const isGif = CONFIG.video.toLowerCase().includes(".gif");
-
-const mediaElement = isGif
-  ? `<img src="${CONFIG.video}" />`
-  : `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
+const media = isGif
+  ? `<img src="${CONFIG.video}">`
+  : `<video src="${CONFIG.video}" autoplay muted loop></video>`;
 
 const app = document.getElementById("app");
 
 app.innerHTML = `
-  <div class="left">
-    <div class="card glass">
-      <h1>${CONFIG.name}</h1>
-      <div class="divider"></div>
-      <div class="video">
-        ${mediaElement}
-      </div>
-    </div>
-  </div>
+<div class="left">
+  <div class="card glass">
+    <h1>${CONFIG.name}</h1>
+    <div class="divider"></div>
+    <div class="video">${media}</div>
 
-  <div class="right">
-    <div class="section-title glass">
-      ${CONFIG.sectionTitle}
-    </div>
+    <!-- GAME -->
+    <h3>🎮 Glass Runner</h3>
+    <canvas id="game"></canvas>
+    <p>Tap / Space to jump</p>
 
-    ${CONFIG.links.map(link => `
-      <div class="link glass" onclick="window.open('${link.url}', '_blank')">
-        <img src="${link.icon}">
-        <span>${link.title}</span>
-        <div class="arrow">›</div>
-      </div>
-    `).join("")}
+    <div class="leaderboard" id="leaderboard"></div>
   </div>
+</div>
+
+<div class="right">
+  <div class="section-title glass">${CONFIG.sectionTitle}</div>
+
+  ${CONFIG.links.map(l=>`
+    <div class="link glass" onclick="window.open('${l.url}','_blank')">
+      <img src="${l.icon}">
+      <span>${l.title}</span>
+      <div>›</div>
+    </div>
+  `).join("")}
+</div>
 `;
+
+/* GAME LOGIC */
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = 600;
+canvas.height = 200;
+
+let player = {x:50,y:150,w:20,h:20,vy:0};
+let gravity = 0.6;
+let jumping = false;
+
+let obstacles = [];
+let score = 0;
+let running = true;
+
+function spawnObstacle(){
+  obstacles.push({x:600,y:160,w:20,h:40});
+}
+
+setInterval(spawnObstacle,1500);
+
+function update(){
+  if(!running) return;
+
+  ctx.clearRect(0,0,600,200);
+
+  player.vy += gravity;
+  player.y += player.vy;
+
+  if(player.y > 150){
+    player.y = 150;
+    player.vy = 0;
+    jumping = false;
+  }
+
+  ctx.fillStyle="white";
+  ctx.fillRect(player.x,player.y,player.w,player.h);
+
+  obstacles.forEach(o=>{
+    o.x -= 5;
+    ctx.fillRect(o.x,o.y,o.w,o.h);
+
+    // collision
+    if(player.x < o.x+o.w &&
+       player.x+player.w > o.x &&
+       player.y < o.y+o.h &&
+       player.y+player.h > o.y){
+         gameOver();
+    }
+  });
+
+  obstacles = obstacles.filter(o=>o.x>-20);
+
+  score++;
+  ctx.fillText("Score: "+score,10,20);
+
+  requestAnimationFrame(update);
+}
+
+function jump(){
+  if(!jumping){
+    player.vy = -10;
+    jumping = true;
+  }
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.code==="Space") jump();
+});
+
+canvas.addEventListener("click", jump);
+
+function gameOver(){
+  running = false;
+  saveScore(score);
+  alert("Game Over! Score: "+score);
+}
+
+function saveScore(s){
+  let scores = JSON.parse(localStorage.getItem("scores")||"[]");
+  scores.push(s);
+  scores.sort((a,b)=>b-a);
+  scores = scores.slice(0,10);
+  localStorage.setItem("scores",JSON.stringify(scores));
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  let scores = JSON.parse(localStorage.getItem("scores")||"[]");
+  document.getElementById("leaderboard").innerHTML =
+    "<h4>🏆 Top 10</h4>" +
+    scores.map((s,i)=>`${i+1}. ${s}`).join("<br>");
+}
+
+renderLeaderboard();
+update();
 </script>
 
 </body>

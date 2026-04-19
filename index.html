@@ -13,7 +13,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* 🔥 CHANGE YOUR BACKGROUND HERE */
+/* 🔥 CHANGE BACKGROUND HERE */
 body {
   --bg-url: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1974');
   background: var(--bg-url) center/cover no-repeat;
@@ -24,12 +24,12 @@ body {
   transition: 0.4s;
 }
 
-/* overlay glow */
+/* blur overlay */
 body::before {
   content: "";
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 }
 
 /* container */
@@ -49,7 +49,7 @@ body.light .glass {
   border: 1px solid rgba(255,255,255,0.4);
 }
 
-/* GLASS BASE */
+/* GLASS */
 .glass {
   backdrop-filter: blur(25px);
   border-radius: 22px;
@@ -65,7 +65,6 @@ body.light .glass {
   margin-bottom: 22px;
 }
 
-/* TITLE */
 .card h1 {
   color: white;
   text-align: center;
@@ -124,7 +123,7 @@ hr {
   border: none;
 }
 
-/* LINK CARDS */
+/* LINKS */
 .link {
   display: flex;
   align-items: center;
@@ -140,15 +139,27 @@ hr {
   transform: translateY(-3px);
 }
 
-/* 🔥 SQUARE ICONS */
-.link img {
-  width: 34px;
-  height: 34px;
+/* 🔥 TRUE SQUARE ICON BOX */
+.icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 14px;
-  border-radius: 8px;
-  object-fit: cover;
+  backdrop-filter: blur(10px);
 }
 
+/* ICON */
+.icon-box img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* text */
 .link span {
   flex: 1;
   font-size: 17px;
@@ -180,20 +191,29 @@ hr {
     </div>
   </div>
 
+  <!-- Instagram -->
   <div class="link glass" onclick="go('https://instagram.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+    <div class="icon-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+    </div>
     <span>Instagram</span>
     <div class="arrow">›</div>
   </div>
 
+  <!-- TikTok -->
   <div class="link glass" onclick="go('https://tiktok.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    <div class="icon-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    </div>
     <span>TikTok</span>
     <div class="arrow">›</div>
   </div>
 
+  <!-- YouTube -->
   <div class="link glass" onclick="go('https://youtube.com')">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+    <div class="icon-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+    </div>
     <span>YouTube</span>
     <div class="arrow">›</div>
   </div>
@@ -218,7 +238,7 @@ toggle.addEventListener("change", () => {
   }
 });
 
-/* 🔥 OPTIONAL: change background dynamically */
+/* 🔥 CHANGE BACKGROUND WITH JS */
 function setBackground(url){
   document.body.style.setProperty('--bg-url', `url(${url})`);
 }

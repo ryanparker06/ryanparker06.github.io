@@ -139,24 +139,13 @@ hr {
   transform: translateY(-3px);
 }
 
-/* 🔥 TRUE SQUARE ICON BOX */
-.icon-box {
+/* 🔥 REAL SQUARE ICONS */
+.link img {
   width: 42px;
   height: 42px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-right: 14px;
-  backdrop-filter: blur(10px);
-}
-
-/* ICON */
-.icon-box img {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
+  border-radius: 10px; /* keeps app-icon feel */
+  object-fit: cover;
 }
 
 /* text */
@@ -191,29 +180,23 @@ hr {
     </div>
   </div>
 
-  <!-- Instagram -->
+  <!-- Instagram (square icon) -->
   <div class="link glass" onclick="go('https://instagram.com')">
-    <div class="icon-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713420.png">
     <span>Instagram</span>
     <div class="arrow">›</div>
   </div>
 
-  <!-- TikTok -->
+  <!-- TikTok (square icon) -->
   <div class="link glass" onclick="go('https://tiktok.com')">
-    <div class="icon-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713417.png">
     <span>TikTok</span>
     <div class="arrow">›</div>
   </div>
 
-  <!-- YouTube -->
+  <!-- YouTube (square icon) -->
   <div class="link glass" onclick="go('https://youtube.com')">
-    <div class="icon-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/15713/15713428.png">
     <span>YouTube</span>
     <div class="arrow">›</div>
   </div>
@@ -238,7 +221,7 @@ toggle.addEventListener("change", () => {
   }
 });
 
-/* 🔥 CHANGE BACKGROUND WITH JS */
+/* CHANGE BACKGROUND */
 function setBackground(url){
   document.body.style.setProperty('--bg-url', `url(${url})`);
 }

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,8 @@
 <script>
 const CONFIG = {
   name: "RYAN PARKER",
+
+  bio: "Content creator • Lifestyle • Football",
 
   sectionTitle: "Social Media Links",
 
@@ -56,7 +59,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* 🔥 FIXED CENTERING */
+/* BUILD-IN ANIMATION */
 .wrapper {
   width: 100%;
   max-width: 1100px;
@@ -65,13 +68,24 @@ body {
   gap: 20px;
   padding: 20px;
   margin: auto;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: buildIn 0.8s ease forwards;
+}
+
+@keyframes buildIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (min-width: 900px) {
   .wrapper {
     flex-direction: row;
-    justify-content: center;   /* center horizontally */
-    align-items: center;       /* center vertically */
+    justify-content: center;
+    align-items: center;
     gap: 60px;
   }
 
@@ -98,12 +112,19 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .card h1 {
   color: white;
   text-align: center;
+}
+
+/* BIO */
+.bio {
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  font-size: 14px;
 }
 
 .divider {
@@ -136,6 +157,7 @@ body {
   object-fit: cover;
 }
 
+/* HOVER ANIMATIONS */
 .link {
   display: flex;
   align-items: center;
@@ -143,6 +165,16 @@ body {
   border-radius: 20px;
   color: white;
   cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.link:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(255,255,255,0.1);
+}
+
+.link:active {
+  transform: scale(0.97);
 }
 
 .link img {
@@ -197,6 +229,7 @@ app.innerHTML = `
   <div class="left">
     <div class="card glass">
       <h1>${CONFIG.name}</h1>
+      <p class="bio">${CONFIG.bio}</p>
       <div class="divider"></div>
       <div class="video">
         ${mediaElement}
@@ -211,7 +244,7 @@ app.innerHTML = `
 
     ${CONFIG.links.map(link => `
       <div class="link glass" onclick="window.open('${link.url}', '_blank')">
-        <img src="${link.icon}">
+        <img src="${link.icon}" alt="${link.title}">
         <span>${link.title}</span>
         <div class="arrow">›</div>
       </div>
@@ -222,3 +255,4 @@ app.innerHTML = `
 
 </body>
 </html>
+```

@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
 const CONFIG = {
   name: "RYAN PARKER",
 
-  bio: "Parkour/Freerunning • Walking & Hiking",
+  bio: "Parkour/Freerunning • Walking/Hiking",
 
   sectionTitle: "Social Media Links",
 
@@ -101,12 +100,10 @@ body {
   gap: 14px;
 }
 
-/* TRANSPARENT GLASS */
 .glass {
   backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
   border-radius: 22px;
-  background: transparent; /* 👈 now fully transparent */
+  background: rgba(20,20,25,0.5);
   border: 1px solid rgba(255,255,255,0.15);
 }
 
@@ -172,7 +169,7 @@ body {
 
 .link:hover {
   transform: translateY(-5px) scale(1.02);
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.1);
 }
 
 .link:active {
@@ -257,4 +254,3 @@ app.innerHTML = `
 
 </body>
 </html>
-```

@@ -58,7 +58,6 @@ body {
   background-repeat: no-repeat;
 }
 
-/* BUILD-IN ANIMATION */
 .wrapper {
   width: 100%;
   max-width: 1100px;
@@ -119,7 +118,6 @@ body {
   text-align: center;
 }
 
-/* BIO */
 .bio {
   color: rgba(255,255,255,0.7);
   text-align: center;
@@ -150,13 +148,14 @@ body {
 }
 
 .video video,
-.video img {
+.video img,
+.video iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: none;
 }
 
-/* HOVER ANIMATIONS */
 .link {
   display: flex;
   align-items: center;
@@ -216,11 +215,37 @@ function loadBackground(url) {
 
 loadBackground(CONFIG.background);
 
-const isGif = CONFIG.video.toLowerCase().includes(".gif");
+const videoUrl = CONFIG.video.toLowerCase();
 
-const mediaElement = isGif
-  ? `<img src="${CONFIG.video}" />`
-  : `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
+const isGif = videoUrl.includes(".gif");
+const isYouTube = videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be");
+
+let mediaElement = "";
+
+if (isGif) {
+  mediaElement = `<img src="${CONFIG.video}" />`;
+} 
+else if (isYouTube) {
+  let embedUrl = CONFIG.video;
+
+  if (embedUrl.includes("watch?v=")) {
+    embedUrl = embedUrl.replace("watch?v=", "embed/");
+  } else if (embedUrl.includes("youtu.be/")) {
+    embedUrl = embedUrl.replace("youtu.be/", "youtube.com/embed/");
+  }
+
+  mediaElement = `
+    <iframe 
+      src="${embedUrl}" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  `;
+} 
+else {
+  mediaElement = `<video src="${CONFIG.video}" autoplay muted loop playsinline controls></video>`;
+}
 
 const app = document.getElementById("app");
 

@@ -226,19 +226,14 @@ if (isGif) {
   mediaElement = `<img src="${CONFIG.video}" />`;
 } 
 else if (isYouTube) {
-  let embedUrl = CONFIG.video;
-
-  if (embedUrl.includes("watch?v=")) {
-    embedUrl = embedUrl.replace("watch?v=", "embed/");
-  } else if (embedUrl.includes("youtu.be/")) {
-    embedUrl = embedUrl.replace("youtu.be/", "youtube.com/embed/");
-  }
+  // Latest video from your channel (no autoplay)
+  const embedUrl = "https://www.youtube.com/embed?listType=playlist&list=UU08qXnTQhQDZN7UMYESsVVw";
 
   mediaElement = `
     <iframe 
       src="${embedUrl}" 
       frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allow="encrypted-media; picture-in-picture"
       allowfullscreen>
     </iframe>
   `;
